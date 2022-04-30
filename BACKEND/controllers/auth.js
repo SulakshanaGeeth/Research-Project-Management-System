@@ -25,14 +25,6 @@ exports.register = async (req, res) => {
       email,
       password,
       type,
-      nameWithInitials,
-      fullName,
-      nic,
-      address,
-      phoneNumber,
-      designation,
-      branch,
-      empId, //this.password filed of user.js in models
     });
     sendToken(user, 200, res);
   } catch (error) {
@@ -68,7 +60,7 @@ exports.login = async (req, res) => {
       //true
       return res.status(401).json({
         success: false,
-        available: "User does not exists. Please contact your admin !",
+        available: "User does not exists. Please create an account !",
       });
     }
 
@@ -111,12 +103,12 @@ exports.forgotpassword = async (req, res) => {
 
     const message = `
         <center>
-        <img src='https://i.ibb.co/2MbfFCT/logo.png' />
-        <h1>Ministry of Fisheries</h1><br/><br/></br>
+        <img src='https://i.ibb.co/4RvV7nj/logo.png' />
+        <h1>Sri Lanka Institute of Information Technology</h1><br/><br/></br>
         <h3>You have requested a password reset</h3>
         <p>Please go to this URL to reset password</p>
         <a href=${resetURL} clicktracking=off>${resetURL}</a><br/><br/></br>
-        <span>Copyright © 2022 Ministry of Fisheries<span></center>
+        <span>Copyright © 2022 Sri Lanka Institute of Information Technology<span></center>
          `;
     try {
       await sendEmail({
@@ -265,7 +257,7 @@ exports.notifyUser = async (req, res) => {
         <p>Username : ${username}</p>
         <p>Password : ${password}</p>
         <br/><br/></br>
-        <span>Copyright © 2022 Ministry of Fisheries<span></center>
+        <span>Copyright © 2022 Sri Lanka Institute of Information Technology<span></center>
          `;
   try {
     await sendEmail({

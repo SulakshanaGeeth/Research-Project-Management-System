@@ -63,7 +63,7 @@ const Register = () => {
     }
 
     try {
-      const { data } = await axios.post(
+      await axios.post(
         "/api/auth/register",
         { username, email, password, type },
         config
@@ -74,11 +74,6 @@ const Register = () => {
         { email, username, password },
         config
       );
-
-      localStorage.setItem("authToken", data.token); //set the data to the browswer local storage
-      localStorage.setItem("email", data.email);
-      localStorage.setItem("username", data.username);
-
       setTimeout(() => {
         notification.info({
           message: `You are successfully registered.`,
