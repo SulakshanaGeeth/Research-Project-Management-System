@@ -10,6 +10,9 @@ import StaffRegister from "./components/Register/StaffRegister";
 import PageNotFound from "./routes/PageNotFound";
 import PrivateRoute from "./routes/PrivateRoute";
 
+//Supervisor Imports
+import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
+
 const App = () => {
   return (
     <>
@@ -30,6 +33,16 @@ const App = () => {
             element={
               <PrivateRoute>
                 <StaffRegister />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Supervisor Routes Goes Here */}
+          <Route
+            path="/:supervisorType/:username"
+            element={
+              <PrivateRoute>
+                <SupervisorDashboard />
               </PrivateRoute>
             }
           />
