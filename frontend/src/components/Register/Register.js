@@ -33,6 +33,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); //additional
   const [isError, setIsError] = useState(false);
+  const type = "student";
 
   const history = useNavigate();
 
@@ -64,7 +65,13 @@ const Register = () => {
     try {
       const { data } = await axios.post(
         "/api/auth/register",
-        { username, email, password },
+        { username, email, password, type },
+        config
+      );
+
+      await axios.post(
+        "/api/auth/notifyuser",
+        { email, username, password },
         config
       );
 
@@ -75,8 +82,7 @@ const Register = () => {
       setTimeout(() => {
         notification.info({
           message: `You are successfully registered.`,
-          description:
-            "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+          description: "You can access to the system using your credentials.",
           placement: "top",
         });
         setLoading(false);
@@ -130,7 +136,6 @@ const Register = () => {
                 <Input
                   label={"USERNAME"}
                   name={"username"}
-                  fieldType={"username"}
                   size={"large"}
                   placeholder={"e.g John Doe"}
                   required
@@ -141,7 +146,6 @@ const Register = () => {
                 <Input
                   label={"USERNAME"}
                   name={"email"}
-                  fieldType={"email"}
                   size={"large"}
                   placeholder={"e.g john@example.com"}
                   required
@@ -153,7 +157,6 @@ const Register = () => {
                 <Input.Password
                   label={"PASSWORD"}
                   name={"password"}
-                  fieldType={"password"}
                   size={"large"}
                   type="password"
                   placeholder="type your password"
@@ -168,7 +171,6 @@ const Register = () => {
                 <Input.Password
                   label={"RE-PASSWORD"}
                   name={"repassword"}
-                  fieldType={"repassword"}
                   size={"large"}
                   type="password"
                   placeholder="type your password"

@@ -49,12 +49,14 @@ export default () => {
       setSuccess(data.verify);
       setTimeout(() => {
         setVisible(false);
+        setEmail("");
       }, 3000);
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
         setError("");
         setSuccess("");
+        setEmail("");
       }, 5000); //5s
     }
   };
