@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  Row,
-  Col,
-  Form,
-  Input,
-  Button,
-  Layout,
-  Divider,
-  Spin,
-} from "antd";
+import { Row, Col, Form, Input, Button, Layout, Divider, Spin } from "antd";
 import "./Login.scss";
 import Logo from "./assets/logo.png";
 import LoginLogo from "./assets/login.png";
@@ -62,11 +53,13 @@ const Login = () => {
       setTimeout(() => {
         // set a 5seconds timeout for authentication
 
-        if (data.type === "Admin") {
-          history(`/admin-dashboard/${data.username}`);
-        } else {
-          history(`/user-dashboard/${data.username}`);
-        }
+        if (data.type === "Admin") history(`/admin-dashboard/${data.username}`);
+        else if (data.type === "Staff") history(`/staff-register`);
+        else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
+          history(`/${data.type}-dashboard/${data.username}`);
+        else if (data.type === "panel")
+          history(`/panel-dashboard/${data.username}`);
+        else history(`/student-dashboard/${data.username}`);
 
         setLoading(false);
         window.location.reload();
@@ -76,6 +69,8 @@ const Login = () => {
       setAvailable(error.response.data.available);
       setLoading(false);
       setIsError(true);
+      setUsername("");
+      setPassword("");
       setTimeout(() => {
         setError("");
         setAvailable("");
