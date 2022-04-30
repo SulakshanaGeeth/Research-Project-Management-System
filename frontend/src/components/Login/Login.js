@@ -58,7 +58,6 @@ const Login = () => {
       localStorage.setItem("username", data.username);
       localStorage.setItem("email", data.email);
       localStorage.setItem("type", data?.type);
-      localStorage.setItem("id", data?.empId);
 
       setTimeout(() => {
         // set a 5seconds timeout for authentication
@@ -127,7 +126,6 @@ const Login = () => {
                 <Input
                   label={"USERNAME"}
                   name={"username"}
-                  fieldType={"username"}
                   size={"large"}
                   placeholder={"e.g John Doe"}
                   required
@@ -138,7 +136,6 @@ const Login = () => {
                 <Input.Password
                   label={"PASSWORD"}
                   name={"password"}
-                  fieldType={"password"}
                   size={"large"}
                   type="password"
                   placeholder="type your password"
