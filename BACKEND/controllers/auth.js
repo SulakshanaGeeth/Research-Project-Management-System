@@ -210,28 +210,12 @@ exports.getById = async (req, res) => {
 exports.updateById = async (req, res) => {
   const { id } = req.params;
 
-  const {
-    email,
-    nameWithInitials,
-    fullName,
-    nic,
-    address,
-    phoneNumber,
-    designation,
-    branch,
-    empId,
-  } = req.body;
+  const { email, username, password } = req.body;
 
   await User.findByIdAndUpdate(id, {
     email,
-    nameWithInitials,
-    fullName,
-    nic,
-    address,
-    phoneNumber,
-    designation,
-    branch,
-    empId,
+    username,
+    password,
   })
     .then(() => res.json({ message: "Successfully Update the Employee" }))
     .catch((err) => res.status(500).json({ err }));
@@ -246,13 +230,19 @@ exports.deleteById = async (req, res) => {
 };
 
 exports.notifyUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, type } = req.body;
 
   const message = `
         <center>
         <img src='https://i.ibb.co/4RvV7nj/logo.png' />
         <h1>Sri Lanka Institute of Information Technology</h1><br/><br/></br>
         <h3>We created a login for you</h3>
+        <h5>
+        ${
+          type !== "student" &&
+          `You are now a ${type !== "panel" ? `${type} ` : `${type} member`}`
+        }
+        </h5>
         <p>Please refer the bellow credentials to login to the system</p>
         <p>Username : ${username}</p>
         <p>Password : ${password}</p>

@@ -9,6 +9,7 @@ import {
   Divider,
   Spin,
   notification,
+  Select,
 } from "antd";
 import "../Login/Login.scss";
 import Logo from "./assets/logo.png";
@@ -24,8 +25,9 @@ import axios from "axios";
 import "antd/dist/antd.css";
 
 const { Header } = Layout;
+const { Option } = Select;
 
-const Register = () => {
+const StaffRegister = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -33,9 +35,21 @@ const Register = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); //additional
   const [isError, setIsError] = useState(false);
-  const type = "student";
+  const [type, setType] = useState("");
 
   const history = useNavigate();
+
+  const onChangeType = (type) => {
+    setType(type);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.setItem("authToken", undefined);
+    localStorage.removeItem("type");
+    history("/");
+  };
 
   const registerHandler = async () => {
     //register handler method
@@ -76,12 +90,16 @@ const Register = () => {
       );
       setTimeout(() => {
         notification.info({
-          message: `You are successfully registered.`,
-          description: "You can access to the system using your credentials.",
+          message: `You are successfully registered a ${type}.`,
+          description: `The email will be sent to the relavant ${type}`,
           placement: "top",
         });
-        setLoading(false);
-        history("/"); // after 5seconds it will redirect to the login
+        setLoading(false); // after 5seconds it will redirect to the login
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setType("");
       }, 5000); //5s
     } catch (error) {
       setError(error.response.data.error);
@@ -123,8 +141,28 @@ const Register = () => {
                   </span>
                 )}
               </center>
-              <div className="text-block">Student Registration Form</div>
+              <div className="text-block">Staff Registration Form</div>
               <Form onFinish={registerHandler}>
+                <label>Staff Type</label>
+                <br />
+                <Form.Item name={"staff type"} rules={[{ required: true }]}>
+                  <Select
+                    style={{ width: "100%" }}
+                    showSearch
+                    placeholder="Select a staff type"
+                    optionFilterProp="children"
+                    filterOption={(input, option) =>
+                      option.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                    onChange={onChangeType}
+                  >
+                    <Option value="Supervisor">Supervisor</Option>
+                    <Option value="Co-Supervisor">Co-Supervisor</Option>
+                    <Option value="panel">Panel Member</Option>
+                  </Select>
+                </Form.Item>
                 <label>Username</label>
                 <Input
                   label={"USERNAME"}
@@ -137,7 +175,7 @@ const Register = () => {
                 />
                 <label>Email</label>
                 <Input
-                  label={"USERNAME"}
+                  label={"EMAIl"}
                   name={"email"}
                   size={"large"}
                   placeholder={"e.g john@example.com"}
@@ -176,9 +214,13 @@ const Register = () => {
                 />
                 <br /> <br /> <br />
                 {/* <a className="forget-text">Forgot password?</a> */}
-                <Link to="/" className="forget-text" style={{ float: "left" }}>
-                  Already have an account
-                </Link>
+                <a
+                  onClick={logoutHandler}
+                  className="forget-text"
+                  style={{ float: "left" }}
+                >
+                  Back to Login (LOGOUT)
+                </a>
                 <div className="btn-wrap">
                   <center>
                     {isError && (
@@ -228,4 +270,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default StaffRegister;
