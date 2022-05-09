@@ -87,7 +87,7 @@ const SupervisorDashboard = () => {
 
   const logoutHandler = () => {
     localStorage.removeItem("username");
-    localStorage.setItem("authTaken", undefined);
+    localStorage.setItem("authToken", null);
     localStorage.removeItem("email");
     localStorage.removeItem("type");
     history("/");
