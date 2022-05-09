@@ -5,7 +5,9 @@ import { Navigate } from "react-router-dom";
 //private route logic
 function PrivateRoute({ children }) {
   const [loading, setLoading] = useState(true);
-  useEffect(() => setTimeout(() => setLoading(false), 5000), []);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 5000);
+  }, []);
 
   if (localStorage.getItem("authToken") === "null") {
     return (
