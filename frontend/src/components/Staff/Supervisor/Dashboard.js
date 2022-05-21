@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
-import { Layout, Menu, Breadcrumb, Button } from "antd";
+import { Layout, Menu, Breadcrumb, Button, Popover } from "antd";
 import {
   LogoutOutlined,
   HomeOutlined,
   FolderOpenFilled,
   SnippetsFilled,
   WechatFilled,
+  SettingFilled,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import "./styles/Dashboard.css";
 import Logo from "./assets/logo.png";
 import { useNavigate, useParams } from "react-router-dom";
 import CarouselView from "./DashboardSubComponents/CarouselView";
+import ResearchTopics from "./DashboardSubComponents/ResearchTopics";
+import EvaluateDocuments from "./DashboardSubComponents/EvaluateDocuments";
+import ChatWithGroups from "./DashboardSubComponents/ChatWithGroups";
+import PasswordResetRequest from "../../Register/PasswordResetRequest";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -86,9 +91,30 @@ const SupervisorDashboard = () => {
     history("/");
   };
 
+  //Profile Pop Over
+  const [visible, setVisible] = useState(false);
+  const hide = () => {
+    setVisible(false);
+  };
+
+  const handleVisibleChange = (visible) => {
+    setVisible(visible);
+  };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "sticky",
+          top: 0,
+          left: 0,
+        }}
+      >
         {collapsed === false ? (
           <div className="logo">
             <center>
@@ -135,7 +161,7 @@ const SupervisorDashboard = () => {
         <br />
         <Menu
           theme="dark"
-          mode="inline"
+          mode="vertical"
           selectedKeys={
             location.pathname ===
             `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
@@ -231,34 +257,52 @@ const SupervisorDashboard = () => {
               `/${localStorage.getItem(
                 "type"
               )}-dashboard/${localStorage.getItem("username")}` && "Dashboard"}
-            {/* {location.pathname ===
-              `/${localStorage.getItem(
-                "type"
-              )}-dashboard/${localStorage.getItem(
-                "username"
-              )}/research-topics` && "Research Topics"}
-            {location.pathname ===
-              `/${localStorage.getItem(
-                "type"
-              )}-dashboard/${localStorage.getItem(
-                "username"
-              )}/evaluate-documents` && "Evaluate Documents"}
-            {location.pathname ===
-              `/${localStorage.getItem(
-                "type"
-              )}-dashboard/${localStorage.getItem("username")}/chat` &&
-              "Chat With Groups"} */}
           </h1>
         </Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>{greet}</Breadcrumb.Item>
             <Breadcrumb.Item>{username}</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Popover
+                style={{ float: "right" }}
+                content={
+                  <>
+                    Password Reset 👇
+                    <PasswordResetRequest hidePopOver={() => hide()} />
+                    <br />
+                    <center>
+                      <a onClick={hide}>Close</a>
+                    </center>
+                  </>
+                }
+                title={`Hi ${localStorage.getItem("type")}`}
+                trigger="click"
+                visible={visible}
+                onVisibleChange={handleVisibleChange}
+              >
+                <Button type="primary">
+                  <SettingFilled />
+                </Button>
+              </Popover>
+            </Breadcrumb.Item>
           </Breadcrumb>
           {location.pathname ===
             `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
               "username"
             )}` && <CarouselView />}
+          {location.pathname ===
+            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+              "username"
+            )}/research-topics` && <ResearchTopics />}
+          {location.pathname ===
+            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+              "username"
+            )}/evaluate-documents` && <EvaluateDocuments />}
+          {location.pathname ===
+            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+              "username"
+            )}/chat` && <ChatWithGroups />}
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Copyright © {date.getFullYear()} SLIIT
