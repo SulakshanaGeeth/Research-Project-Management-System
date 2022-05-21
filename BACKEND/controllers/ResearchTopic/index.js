@@ -13,6 +13,7 @@ exports.register = async (req, res) => {
     lastModified = "NO MODIFICATION",
     status = "PENDING",
     acceptOrRejectBy = "NONE",
+    supervisorName,
   } = req.body;
   const members = Number(req.body.members);
 
@@ -27,6 +28,7 @@ exports.register = async (req, res) => {
     lastModified,
     status,
     acceptOrRejectBy,
+    supervisorName,
   });
 
   const isAvailable = await Topic.findOne({
