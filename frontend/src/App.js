@@ -67,6 +67,30 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/:supervisorType/:username/research-topics"
+            element={
+              <PrivateRoute>
+                <SupervisorDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/:supervisorType/:username/evaluate-documents"
+            element={
+              <PrivateRoute>
+                <SupervisorDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/:supervisorType/:username/chat"
+            element={
+              <PrivateRoute>
+                <SupervisorDashboard />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Router>
       <>
