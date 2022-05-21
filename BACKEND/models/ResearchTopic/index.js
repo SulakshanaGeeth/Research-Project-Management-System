@@ -12,6 +12,7 @@ const Topic = new Schema({
   lastModified: String,
   status: String,
   acceptOrRejectBy: String,
+  supervisorName: String,
 });
 
 const newTopic = mongoose.model("research-topic", Topic);
