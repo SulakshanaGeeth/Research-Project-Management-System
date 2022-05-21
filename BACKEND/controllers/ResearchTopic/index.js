@@ -121,7 +121,6 @@ exports.notifyStudentBySupervisor = async (req, res) => {
             ? `Please send a mail to ${email}`
             : "Congratulations...🥳😍❤️"
         }</h3>
-        <p>Please refer the bellow credentials to login to the system</p>
         <br/><br/></br>
         <span>Copyright © 2022 Sri Lanka Institute of Information Technology<span></center>
          `;
