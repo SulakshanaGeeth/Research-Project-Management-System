@@ -20,7 +20,7 @@ const tailLayout = {
   },
 };
 
-const PasswordResetRequest = () => {
+const PasswordResetRequest = ({ hidePopOver }) => {
   const [visible, setVisible] = useState(false);
 
   const [email, setEmail] = useState("");
@@ -78,7 +78,13 @@ const PasswordResetRequest = () => {
         </a>
       ) : (
         <center>
-          <Button type="primary" onClick={showModal}>
+          <Button
+            type="primary"
+            onClick={() => {
+              showModal();
+              hidePopOver(false);
+            }}
+          >
             Click Here To Request
           </Button>
         </center>
