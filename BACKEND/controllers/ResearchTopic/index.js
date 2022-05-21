@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
     acceptOrRejectBy,
   });
 
-  const isAvailable = await Todos.findOne({
+  const isAvailable = await Topic.findOne({
     //check the availability of saving data
     topicId: topicId,
     topicName: topicName,
@@ -109,7 +109,7 @@ exports.acceptOrReject = async (req, res) => {
 };
 
 exports.notifyStudentBySupervisor = async (req, res) => {
-  const { userEmail, status, topicName, email } = req.body;
+  const { userEmail, status, topicName, email, supervisor } = req.body;
 
   const message = `
         <center>
@@ -121,6 +121,8 @@ exports.notifyStudentBySupervisor = async (req, res) => {
             ? `Please send a mail to ${email}`
             : "Congratulations...🥳😍❤️"
         }</h3>
+        <h3>${status} by ${supervisor}</h3>
+
         <br/><br/></br>
         <span>Copyright © 2022 Sri Lanka Institute of Information Technology<span></center>
          `;

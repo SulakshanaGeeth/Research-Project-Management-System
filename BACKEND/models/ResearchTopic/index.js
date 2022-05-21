@@ -9,7 +9,7 @@ const Topic = new Schema({
   faculty: String,
   members: Number,
   date: Date,
-  lastModified: Date,
+  lastModified: String,
   status: String,
   acceptOrRejectBy: String,
 });
