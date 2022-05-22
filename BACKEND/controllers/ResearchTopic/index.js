@@ -14,6 +14,7 @@ exports.register = async (req, res) => {
     status = "PENDING",
     acceptOrRejectBy = "NONE",
     supervisorName,
+    attachment = "https://drive.google.com/file/d/120D8ZvQs9R97wiXo8JZesq13vb6ctFsK/preview",
   } = req.body;
   const members = Number(req.body.members);
 
@@ -29,6 +30,7 @@ exports.register = async (req, res) => {
     status,
     acceptOrRejectBy,
     supervisorName,
+    attachment,
   });
 
   const isAvailable =
@@ -80,7 +82,14 @@ exports.getTopic = async (req, res) => {
 exports.updateTopic = async (req, res) => {
   //backend route for updating relavant data and passing back
   const { id } = req.params;
-  const { topicName, userEmail, topicCat, faculty, date } = req.body;
+  const {
+    topicName,
+    userEmail,
+    topicCat,
+    faculty,
+    date,
+    attachment = "https://drive.google.com/file/d/120D8ZvQs9R97wiXo8JZesq13vb6ctFsK/preview",
+  } = req.body;
   const members = Number(req.body.members);
 
   await Topic.findByIdAndUpdate(id, {
@@ -90,6 +99,7 @@ exports.updateTopic = async (req, res) => {
     faculty,
     date,
     members,
+    attachment,
   }) //find the document by and update the relavant data
     .then(() => res.json({ success: true }))
     .catch((error) => res.json({ success: false, Error: error }));
