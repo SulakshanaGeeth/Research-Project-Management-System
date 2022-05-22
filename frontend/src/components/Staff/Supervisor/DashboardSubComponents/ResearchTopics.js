@@ -30,6 +30,7 @@ function ResearchTopics() {
 
   const markType = async (id, type) => {
     const acceptOrRejectBy = localStorage.getItem("username");
+    const lastModified = new Date();
     let status = "";
     if (type === "accept") {
       status = "ACCEPTED";
@@ -39,6 +40,8 @@ function ResearchTopics() {
     await axios
       .put(`/research-topic/acceptOrReject/${id}`, {
         status,
+        acceptOrRejectBy,
+        lastModified,
       })
       .then(() => {
         if (type === "accept") {

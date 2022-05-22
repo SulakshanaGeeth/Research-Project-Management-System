@@ -45,21 +45,23 @@ const Login = () => {
         config
       );
 
+      const username = data?.username.split(" ");
+
       localStorage.setItem("authToken", data.token); //set the browser caching or local storage for globally accessed anywhere in the application
-      localStorage.setItem("username", data.username);
+      localStorage.setItem("username", username?.[0]);
       localStorage.setItem("email", data.email);
       localStorage.setItem("type", data?.type);
 
       setTimeout(() => {
         // set a 5seconds timeout for authentication
 
-        if (data.type === "Admin") history(`/admin-dashboard/${data.username}`);
+        if (data.type === "Admin") history(`/admin-dashboard/${username?.[0]}`);
         else if (data.type === "Staff") history(`/staff-register`);
         else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
-          history(`/${data.type}-dashboard/${data.username}`);
+          history(`/${data.type}-dashboard/${username?.[0]}`);
         else if (data.type === "panel")
-          history(`/panel-dashboard/${data.username}`);
-        else history(`/student-dashboard/${data.username}`);
+          history(`/panel-dashboard/${username?.[0]}`);
+        else history(`/student-dashboard/${username?.[0]}`);
 
         setLoading(false);
         window.location.reload();
