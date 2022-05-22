@@ -61,7 +61,7 @@ exports.getStudentGroups = async (req, res) => {
 //controller for getting Student Group by Student Email
 exports.getStudentGroup = async (req, res) => {
   const GroupName = req.params.id;
-  // const { id } = req.params;
+
   console.log(GroupName);
   await StudentGroup.find({ group_name: GroupName }) //find by the document by id
     .then((StudentGroup) => res.json(StudentGroup))
