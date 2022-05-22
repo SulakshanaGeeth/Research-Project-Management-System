@@ -1,4 +1,3 @@
-// eslint-disable import/no-anonymous-default-export
 import { Modal, Button, Tooltip, Input } from "antd";
 import React, { useState } from "react";
 import { Form } from "antd";
@@ -21,7 +20,7 @@ const tailLayout = {
   },
 };
 
-export default () => {
+const PasswordResetRequest = ({ hidePopOver }) => {
   const [visible, setVisible] = useState(false);
 
   const [email, setEmail] = useState("");
@@ -79,7 +78,13 @@ export default () => {
         </a>
       ) : (
         <center>
-          <Button type="primary" onClick={showModal}>
+          <Button
+            type="primary"
+            onClick={() => {
+              showModal();
+              hidePopOver(false);
+            }}
+          >
             Click Here To Request
           </Button>
         </center>
@@ -143,3 +148,5 @@ export default () => {
     </>
   );
 };
+
+export default PasswordResetRequest;

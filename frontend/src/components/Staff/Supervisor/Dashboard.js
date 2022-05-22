@@ -1,41 +1,28 @@
-import { useState } from "react";
-import { Layout, Menu, Breadcrumb, Button } from "antd";
+import { useEffect, useState } from "react";
+import { Layout, Menu, Breadcrumb, Button, Popover } from "antd";
 import {
-  UserAddOutlined,
-  PullRequestOutlined,
-  HistoryOutlined,
-  AuditOutlined,
-  SettingOutlined,
   LogoutOutlined,
-  SendOutlined,
-  CrownOutlined,
-  ProfileOutlined,
   HomeOutlined,
+  FolderOpenFilled,
+  SnippetsFilled,
+  WechatFilled,
+  SettingFilled,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import "./styles/Dashboard.css";
 import Logo from "./assets/logo.png";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CarouselView from "./DashboardSubComponents/CarouselView";
+import ResearchTopics from "./DashboardSubComponents/ResearchTopics";
+import EvaluateDocuments from "./DashboardSubComponents/EvaluateDocuments";
+import ChatWithGroups from "./DashboardSubComponents/ChatWithGroups";
+import PasswordResetRequest from "../../Register/PasswordResetRequest";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const SupervisorDashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const history = useNavigate();
-  const location = useLocation();
-  const search = window.location.search;
-  const params = new URLSearchParams(search);
-  //   const queryL = params.get("_optL");
-  //   const queryE = params.get("_optE");
-  //   const queryA = params.get("_optA");
-  //   const queryH = params.get("_optH");
-  //   const queryR = params.get("_optR");
-  //   const queryEdit = params.get("_edit");
-  //   const queryApply = params.get("_optApply");
-  //   const queryMy = params.get("_my");
-  //   const queryProfile = params.get("_profile");
-  //   const queryUEdit = params.get("_userEdit");
 
   const { username } = useParams();
 
@@ -54,63 +41,95 @@ const SupervisorDashboard = () => {
     setCollapsed(collapsed);
   };
 
+  useEffect(() => {
+    switch (location.pathname) {
+      case `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+        "username"
+      )}/research-topics`:
+        setHeader("topics");
+        break;
+      case `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+        "username"
+      )}/evaluate-documents`:
+        setHeader("documents");
+        break;
+      case `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+        "username"
+      )}/chat`:
+        setHeader("chat");
+        break;
+      default:
+        break;
+    }
+  }, [location.pathname]);
+
   const setHeader = (type) => {
-    // switch (type) {
-    //   case "dashboard":
-    //     document.getElementById("header").innerHTML = "Dashboard";
-    //     break;
-    //   case "leave":
-    //     document.getElementById("header").innerHTML = "Leave Requests";
-    //     break;
-    //   case "details":
-    //     document.getElementById("header").innerHTML = "Employee Details";
-    //     break;
-    //   case "add":
-    //     document.getElementById("header").innerHTML = "Add Employee";
-    //     break;
-    //   case "history":
-    //     document.getElementById("header").innerHTML = "Employee History";
-    //     break;
-    //   case "pwd":
-    //     document.getElementById("header").innerHTML = "Password Reset Request";
-    //     break;
-    //   case "apply":
-    //     document.getElementById("header").innerHTML = "Apply For Leave";
-    //     break;
-    //   case "profile":
-    //     document.getElementById("header").innerHTML = "My Profile";
-    //     break;
-    //   default:
-    //     break;
-    // }
+    switch (type) {
+      case "dashboard":
+        document.getElementById("header").innerHTML = "Dashboard";
+        break;
+      case "topics":
+        document.getElementById("header").innerHTML = "Research Topics";
+        break;
+      case "documents":
+        document.getElementById("header").innerHTML = "Evaluate Documents";
+        break;
+      case "chat":
+        document.getElementById("header").innerHTML = "Chat With Groups";
+        break;
+      default:
+        document.getElementById("header").innerHTML = "Dashboard";
+        break;
+    }
   };
 
   const logoutHandler = () => {
     localStorage.removeItem("username");
-    localStorage.setItem("authTaken", undefined);
+    localStorage.setItem("authToken", null);
     localStorage.removeItem("email");
     localStorage.removeItem("type");
     history("/");
   };
 
+  //Profile Pop Over
+  const [visible, setVisible] = useState(false);
+  const hide = () => {
+    setVisible(false);
+  };
+
+  const handleVisibleChange = (visible) => {
+    setVisible(visible);
+  };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "sticky",
+          top: 0,
+          left: 0,
+        }}
+      >
         {collapsed === false ? (
           <div className="logo">
             <center>
-              <img src={Logo} className="img" />
               <p
                 onClick={() => {
                   history(
-                    `/${
-                      username === "Admin" ? "admin" : "user"
-                    }-dashboard/${localStorage.getItem("username")}`
+                    `/${localStorage.getItem(
+                      "type"
+                    )}-dashboard/${localStorage.getItem("username")}`
                   );
                   setHeader("dashboard");
                 }}
                 style={{ cursor: "pointer" }}
               >
+                <img src={Logo} className="img" />
                 SLIIT
               </p>
             </center>
@@ -121,9 +140,9 @@ const SupervisorDashboard = () => {
               style={{ color: "white", marginTop: "50px", cursor: "pointer" }}
               onClick={() => {
                 history(
-                  `/${
-                    username === "Admin" ? "admin" : "user"
-                  }-dashboard/${localStorage.getItem("username")}`
+                  `/${localStorage.getItem(
+                    "type"
+                  )}-dashboard/${localStorage.getItem("username")}`
                 );
                 setHeader("dashboard");
               }}
@@ -142,144 +161,74 @@ const SupervisorDashboard = () => {
         <br />
         <Menu
           theme="dark"
-          mode="inline"
-          //   selectedKeys={
-          //     queryL === "leave" || queryApply === "true"
-          //       ? ["0"]
-          //       : queryE === "employee" ||
-          //         queryEdit === "true" ||
-          //         queryMy === "view"
-          //       ? ["1"]
-          //       : queryA === "add" ||
-          //         queryProfile === "my" ||
-          //         queryUEdit === "true"
-          //       ? ["2"]
-          //       : queryH === "history"
-          //       ? ["3"]
-          //       : queryR === "request"
-          //       ? ["4"]
-          //       : null
-          //   }
+          mode="vertical"
+          selectedKeys={
+            location.pathname ===
+            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+              "username"
+            )}/research-topics`
+              ? ["0"]
+              : location.pathname ===
+                `/${localStorage.getItem(
+                  "type"
+                )}-dashboard/${localStorage.getItem(
+                  "username"
+                )}/evaluate-documents`
+              ? ["1"]
+              : location.pathname ===
+                  `/${localStorage.getItem(
+                    "type"
+                  )}-dashboard/${localStorage.getItem("username")}/chat` && [
+                  "2",
+                ]
+          }
         >
-          {localStorage.getItem("type") === "Admin" ? (
-            <>
-              <Menu.Item
-                key="0"
-                icon={<PullRequestOutlined />}
-                onClick={() => {
-                  setHeader("leave");
-                  history(
-                    `/admin-dashboard/${localStorage.getItem(
-                      "username"
-                    )}?_optL=leave`
-                  );
-                }}
-              >
-                Leave Requests
-              </Menu.Item>
-              <Menu.Item
-                key="1"
-                icon={<AuditOutlined />}
-                onClick={() => {
-                  setHeader("details");
-                  history(
-                    `/admin-dashboard/${localStorage.getItem(
-                      "username"
-                    )}?_optE=employee`
-                  );
-                }}
-              >
-                Employee Details
-              </Menu.Item>
-              <Menu.Item
-                key="2"
-                icon={<UserAddOutlined />}
-                onClick={() => {
-                  setHeader("add");
-                  history(
-                    `/admin-dashboard/${localStorage.getItem(
-                      "username"
-                    )}?_optA=add`
-                  );
-                }}
-              >
-                Add Employee
-              </Menu.Item>
-              <Menu.Item
-                key="3"
-                icon={<HistoryOutlined />}
-                onClick={() => {
-                  setHeader("history");
-                  history(
-                    `/admin-dashboard/${localStorage.getItem(
-                      "username"
-                    )}?_optH=history`
-                  );
-                }}
-              >
-                Leave History
-              </Menu.Item>
-              <Menu.Item
-                key="4"
-                icon={<SettingOutlined />}
-                onClick={() => {
-                  setHeader("pwd");
-                  history(
-                    `/admin-dashboard/${localStorage.getItem(
-                      "username"
-                    )}?_optR=request`
-                  );
-                }}
-              >
-                Password Reset Request
-              </Menu.Item>
-            </>
-          ) : (
-            <>
-              <Menu.Item
-                key="0"
-                icon={<SendOutlined />}
-                onClick={() => {
-                  setHeader("apply");
-                  history(
-                    `/user-dashboard/${localStorage.getItem(
-                      "username"
-                    )}?_optApply=true`
-                  );
-                }}
-              >
-                Apply For Leave
-              </Menu.Item>
-              <Menu.Item
-                key="1"
-                icon={<CrownOutlined />}
-                onClick={() => {
-                  setHeader("my");
-                  history(
-                    `/user-dashboard/${localStorage.getItem(
-                      "username"
-                    )}?_my=view`
-                  );
-                }}
-              >
-                My Leaves
-              </Menu.Item>
-              <Menu.Item
-                key="2"
-                icon={<ProfileOutlined />}
-                onClick={() => {
-                  setHeader("profile");
-                  history(
-                    `/user-dashboard/${localStorage.getItem(
-                      "username"
-                    )}?_profile=my`
-                  );
-                }}
-              >
-                Profile
-              </Menu.Item>
-            </>
-          )}
+          <Menu.Item
+            key="0"
+            icon={<FolderOpenFilled />}
+            onClick={() => {
+              setHeader("topics");
+              history(
+                `/${localStorage.getItem(
+                  "type"
+                )}-dashboard/${localStorage.getItem(
+                  "username"
+                )}/research-topics`
+              );
+            }}
+          >
+            Research Topics
+          </Menu.Item>
+          <Menu.Item
+            key="1"
+            icon={<SnippetsFilled />}
+            onClick={() => {
+              setHeader("documents");
+              history(
+                `/${localStorage.getItem(
+                  "type"
+                )}-dashboard/${localStorage.getItem(
+                  "username"
+                )}/evaluate-documents`
+              );
+            }}
+          >
+            Evaluate Documents
+          </Menu.Item>
+          <Menu.Item
+            key="2"
+            icon={<WechatFilled />}
+            onClick={() => {
+              setHeader("chat");
+              history(
+                `/${localStorage.getItem(
+                  "type"
+                )}-dashboard/${localStorage.getItem("username")}/chat`
+              );
+            }}
+          >
+            Chat With Groups
+          </Menu.Item>
         </Menu>
         <br />
         <br />
@@ -304,53 +253,56 @@ const SupervisorDashboard = () => {
           style={{ padding: 0, textAlign: "center" }}
         >
           <h1 id="header" style={{ fontFamily: "serif", fontSize: "20px" }}>
-            {/* {queryL === "leave"
-              ? "Leave Requests"
-              : queryE === "employee"
-              ? "Employee Details"
-              : queryEdit === "true"
-              ? "Edit Employee Details"
-              : queryA === "add"
-              ? "Add Employee"
-              : queryH === "history"
-              ? "Leave History"
-              : queryR === "request"
-              ? "Password Reset Request"
-              : queryApply === "true"
-              ? "Apply For Leave"
-              : queryMy === "view"
-              ? "My Leaves"
-              : queryProfile === "my"
-              ? "My Profile"
-              : queryUEdit === "true"
-              ? "Edit Your Profile"
-              : "Dashboard"} */}
+            {location.pathname ===
+              `/${localStorage.getItem(
+                "type"
+              )}-dashboard/${localStorage.getItem("username")}` && "Dashboard"}
           </h1>
         </Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>{greet}</Breadcrumb.Item>
             <Breadcrumb.Item>{username}</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Popover
+                style={{ float: "right" }}
+                content={
+                  <>
+                    Password Reset 👇
+                    <PasswordResetRequest hidePopOver={() => hide()} />
+                    <br />
+                    <center>
+                      <a onClick={hide}>Close</a>
+                    </center>
+                  </>
+                }
+                title={`Hi ${localStorage.getItem("type")}`}
+                trigger="click"
+                visible={visible}
+                onVisibleChange={handleVisibleChange}
+              >
+                <Button type="primary">
+                  <SettingFilled />
+                </Button>
+              </Popover>
+            </Breadcrumb.Item>
           </Breadcrumb>
           {location.pathname ===
             `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
               "username"
-            )}` && <CarouselView/>}
-          {/* {username !== "Admin" &&
-            !queryApply &&
-            !queryMy &&
-            !queryProfile &&
-            !queryUEdit && <CarouselView />}
-          {queryL === "leave" && <DisplayLeaves />}
-          {queryE === "employee" && <DisplayEmployees />}
-          {queryA === "add" && <AddEmployee />}
-          {queryH === "history" && <LeaveHistory />}
-          {queryR === "request" && <PasswordResetRequest />}
-          {queryEdit === "true" && <EditEmployee />}
-          {queryApply === "true" && <LeaveRequest />}
-          {queryProfile === "my" && <Profile />}
-          {queryUEdit === "true" && <EditEmployee />}
-          {queryMy === "view" && <Leaves />} */}
+            )}` && <CarouselView />}
+          {location.pathname ===
+            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+              "username"
+            )}/research-topics` && <ResearchTopics />}
+          {location.pathname ===
+            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+              "username"
+            )}/evaluate-documents` && <EvaluateDocuments />}
+          {location.pathname ===
+            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+              "username"
+            )}/chat` && <ChatWithGroups />}
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Copyright © {date.getFullYear()} SLIIT
