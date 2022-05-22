@@ -8,10 +8,10 @@ const {
   deleteStudentGroup,
 } = require("../../controllers/StudentGroups");
 
-router.route("/createStudentGroup").post(createStudentGroup);
-router.route("/getStudentGroups").get(getStudentGroups);
-router.route("/getStudentGroup/:id").get(getStudentGroup);
-router.route("/updateStudentGroup/:id").put(updateStudentGroup);
-router.route("/deleteStudentGroup/:id").delete(deleteStudentGroup);
+router.route("/create").post(createStudentGroup);
+router.route("/getGroups").get(getStudentGroups);
+router.route("/getGroup/:id").get(getStudentGroup);
+router.route("/updateGroup/:id").put(updateStudentGroup);
+router.route("/deleteGroup/:id").delete(deleteStudentGroup);
 
 module.exports = router;

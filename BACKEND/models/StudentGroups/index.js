@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const StudentGroup = new Schema({
+  group_name: String,
   member1_Email: String,
   member1_Name: String,
   member2_Email: String,
@@ -12,5 +13,5 @@ const StudentGroup = new Schema({
   member4_Name: String,
 });
 
-const newStudentGroup = mongoose.model("create-student-group", StudentGroup);
+const newStudentGroup = mongoose.model("student-group", StudentGroup);
 module.exports = newStudentGroup;
