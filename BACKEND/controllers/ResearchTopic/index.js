@@ -31,12 +31,21 @@ exports.register = async (req, res) => {
     supervisorName,
   });
 
-  const isAvailable = await Topic.findOne({
-    //check the availability of saving data
-    topicId: topicId,
-    topicName: topicName,
-    userEmail: userEmail,
-  });
+  const isAvailable =
+    (await Topic.findOne({
+      //check the availability of saving data
+      topicId: topicId,
+    })) ||
+    (await Topic.findOne({
+      //check the availability of saving data
+
+      topicName: topicName,
+    })) ||
+    (await Topic.findOne({
+      //check the availability of saving data
+
+      userEmail: userEmail,
+    }));
 
   if (isAvailable) {
     // if satisfied return proper error

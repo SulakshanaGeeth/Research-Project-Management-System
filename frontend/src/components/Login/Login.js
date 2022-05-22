@@ -18,7 +18,7 @@ const { Header } = Layout;
 
 const Login = () => {
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [available, setAvailable] = useState("");
   const [loading, setLoading] = useState(false); //additional
@@ -41,7 +41,7 @@ const Login = () => {
     try {
       const { data } = await axios.post(
         "/api/auth/login",
-        { username, password },
+        { email, password },
         config
       );
 
@@ -117,15 +117,15 @@ const Login = () => {
                 Log in to your account if you already have an account
               </div>
               <Form onFinish={loginHandler}>
-                <label>Username</label>
+                <label>Email</label>
                 <Input
-                  label={"USERNAME"}
-                  name={"username"}
+                  label={"EMAIL"}
+                  name={"email"}
                   size={"large"}
-                  placeholder={"e.g John Doe"}
+                  placeholder={"e.g admin@example.com"}
                   required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <label>Password</label>
                 <Input.Password
