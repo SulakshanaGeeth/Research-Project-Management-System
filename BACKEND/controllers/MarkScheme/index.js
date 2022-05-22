@@ -23,7 +23,7 @@ exports.createScheme = async (req, res) => {
 
 //controller for getting topics
 exports.getSchemes = async (req, res) => {
-  await Topic.find()
+  await MarkScheme.find()
     .then((schemes) => res.json(schemes))
     .catch((error) => res.status(500).json({ success: false, error: error }));
 };
@@ -32,7 +32,7 @@ exports.getSchemes = async (req, res) => {
 exports.getScheme = async (req, res) => {
   const { id } = req.params;
 
-  await Topic.findById(id) //find by the document by id
+  await MarkScheme.findById(id) //find by the document by id
     .then((scheme) => res.json(scheme))
     .catch((error) => res.status(500).json({ success: false, error: error }));
 };
