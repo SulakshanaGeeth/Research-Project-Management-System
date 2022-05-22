@@ -18,7 +18,8 @@ function ResearchTopics() {
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [reject, setReject] = useState(false);
-  const [id, setId] = useState("");
+  const [preview, setPreview] = useState(false);
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     (async () =>
@@ -28,9 +29,13 @@ function ResearchTopics() {
       }))();
   }, []);
 
-  const markType = async (id, type) => {
+  const markType = async (value, type) => {
     const acceptOrRejectBy = localStorage.getItem("username");
     const lastModified = new Date();
+    const userEmail = value?.userEmail;
+    const topicName = value?.topicName;
+    const email = localStorage.getItem("email");
+    const supervisor = value?.supervisorName;
     let status = "";
     if (type === "accept") {
       status = "ACCEPTED";
@@ -38,7 +43,7 @@ function ResearchTopics() {
       status = "REJECTED";
     }
     await axios
-      .put(`/research-topic/acceptOrReject/${id}`, {
+      .put(`/research-topic/acceptOrReject/${value?._id}`, {
         status,
         acceptOrRejectBy,
         lastModified,
@@ -58,8 +63,15 @@ function ResearchTopics() {
           });
         }
       });
+    await axios.post("/research-topic/notifyStudentBySupervisor", {
+      userEmail,
+      topicName,
+      status,
+      email,
+      supervisor,
+    });
     await axios
-      .get("/research-topic")
+      .get("/research-topic/")
       .then((res) => {
         setData(res?.data.filter((el) => el?.status === "PENDING"));
         setVisible(false);
@@ -68,16 +80,21 @@ function ResearchTopics() {
       .catch((error) => alert(error));
   };
 
-  const showModal = (id, type) => {
+  const showModal = (value, type) => {
     if (type === "accept") {
       setVisible(true);
-      setId(id);
-    } else setReject(true);
+      setValue(value);
+    } else if (type === "reject") setReject(true);
+    else {
+      setPreview(true);
+      setValue(value);
+    }
   };
 
   const handleCancel = () => {
     setVisible(false);
     setReject(false);
+    setPreview(false);
   };
 
   const handleToggle = async (toggle) => {
@@ -103,7 +120,7 @@ function ResearchTopics() {
   return (
     <>
       <div style={{ float: "right" }}>
-        <i>Show My History</i> <Switch onChange={handleToggle} />
+        <i>Show Accepted & Rejected</i> <Switch onChange={handleToggle} />
       </div>
       <br />
       <br />
@@ -142,23 +159,66 @@ function ResearchTopics() {
                     size="small"
                     actions={[
                       <>
-                        {value?.status === "PENDING" && (
-                          <div onClick={() => showModal(value?._id, "accept")}>
-                            <SafetyCertificateFilled
-                              style={{ color: "green" }}
-                            />
-                            <br />
-                            Accept
-                          </div>
+                        {value?.status === "PENDING" &&
+                          value?.supervisorName?.split(" ")?.[0] ===
+                            localStorage.getItem("username") && (
+                            <div onClick={() => showModal(value, "accept")}>
+                              <SafetyCertificateFilled
+                                style={{ color: "green" }}
+                              />
+                              <br />
+                              Accept
+                            </div>
+                          )}
+                        {value?.status !== "PENDING" && (
+                          <>
+                            <table>
+                              <tr>
+                                <td style={{ fontSize: "10px" }}>
+                                  {value?.status} by
+                                </td>
+                                <td
+                                  style={{
+                                    textAlign: "center",
+                                    fontSize: "10px",
+                                  }}
+                                >
+                                  {value?.acceptOrRejectBy?.split(" ")?.[0] ===
+                                  localStorage.getItem("username")
+                                    ? "You"
+                                    : value?.acceptOrRejectBy}
+                                </td>
+                              </tr>
+                            </table>
+                          </>
                         )}
                       </>,
                       <>
-                        {value?.status === "PENDING" && (
-                          <div onClick={() => showModal(value?._id, "reject")}>
-                            <CloseCircleFilled style={{ color: "red" }} />
-                            <br />
-                            Reject
-                          </div>
+                        {value?.status === "PENDING" &&
+                          value?.supervisorName?.split(" ")?.[0] ===
+                            localStorage.getItem("username") && (
+                            <div onClick={() => showModal(value, "reject")}>
+                              <CloseCircleFilled style={{ color: "red" }} />
+                              <br />
+                              Reject
+                            </div>
+                          )}
+                        {value?.status !== "PENDING" && (
+                          <>
+                            <table>
+                              <tr>
+                                <td style={{ fontSize: "10px" }}>Modified </td>
+                                <td
+                                  style={{
+                                    textAlign: "center",
+                                    fontSize: "10px",
+                                  }}
+                                >
+                                  {value?.lastModified}
+                                </td>
+                              </tr>
+                            </table>
+                          </>
                         )}
                       </>,
                     ]}
@@ -194,6 +254,28 @@ function ResearchTopics() {
                           {value?.userEmail}
                         </td>
                       </tr>
+                      <tr>
+                        <td>Assignee</td>
+                        <td style={{ textAlign: "center" }}>
+                          {value?.supervisorName.split(" ")?.[0] ===
+                          localStorage.getItem("username")
+                            ? "You"
+                            : value?.supervisorName}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Attachment</td>
+                        <td style={{ textAlign: "center" }}>
+                          {value?.supervisorName.split(" ")?.[0] ===
+                          localStorage.getItem("username") ? (
+                            <Button onClick={() => showModal(value, "preview")}>
+                              View
+                            </Button>
+                          ) : (
+                            <span style={{ color: "red" }}>Access Denied</span>
+                          )}
+                        </td>
+                      </tr>
                     </table>
                   </Card>
                 </div>
@@ -215,7 +297,7 @@ function ResearchTopics() {
                       type="primary"
                       htmlType="submit"
                       color="green"
-                      onClick={() => markType(id, "accept")}
+                      onClick={() => markType(value, "accept")}
                     >
                       Accept
                     </Button>
@@ -224,7 +306,7 @@ function ResearchTopics() {
                       type="primary"
                       htmlType="submit"
                       color="red"
-                      onClick={() => markType(id, "reject")}
+                      onClick={() => markType(value, "reject")}
                     >
                       Reject
                     </Button>
@@ -234,6 +316,20 @@ function ResearchTopics() {
                     Return
                   </Button>
                 </center>
+              </Modal>
+              <Modal
+                visible={preview}
+                title={`Preview of the ${value?.topicName}`}
+                onCancel={handleCancel}
+                footer={false}
+                width={800}
+              >
+                <iframe
+                  src={value?.attachment}
+                  width="640"
+                  height="480"
+                  allow="autoplay"
+                ></iframe>
               </Modal>
             </center>
           )}
