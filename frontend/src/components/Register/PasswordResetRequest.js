@@ -1,4 +1,4 @@
-/* eslint-disable import/no-anonymous-default-export */
+// eslint-disable import/no-anonymous-default-export
 import { Modal, Button, Tooltip, Input } from "antd";
 import React, { useState } from "react";
 import { Form } from "antd";
@@ -74,7 +74,6 @@ export default () => {
   return (
     <>
       {location.pathname === "/" ? (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <a className="forget-text" onClick={showModal}>
           Forgot password?
         </a>
