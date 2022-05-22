@@ -3,7 +3,7 @@ const StudentGroup = require("../../models/StudentGroups");
 //controller for registering Student Groups
 //Get data from the user.
 //const member1_Email = req.body.member1_Email
-exports.createGroups = async (req, res) => {
+exports.createStudentGroup = async (req, res) => {
   const {
     member1_Email,
     member1_Name,
