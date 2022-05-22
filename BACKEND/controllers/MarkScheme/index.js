@@ -1,7 +1,8 @@
 const MarkScheme = require("../../models/MarkScheme");
 
 exports.createScheme = async (req, res) => {
-  const { schemeName, desc, steps, totalMarks } = req.body;
+  const { schemeName, desc, steps } = req.body;
+  const totalMarks = Number(req.body.totalMarks);
 
   const newMarkScheme = new MarkScheme({ schemeName, desc, steps, totalMarks });
 
