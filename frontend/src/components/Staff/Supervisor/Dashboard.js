@@ -37,25 +37,24 @@ const SupervisorDashboard = () => {
   else greet = "Good Night";
 
   const onCollapse = (collapsed) => {
-    console.log(collapsed);
     setCollapsed(collapsed);
   };
 
   useEffect(() => {
     switch (location.pathname) {
-      case `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
-        "username"
-      )}/research-topics`:
+      case `/v1/${localStorage.getItem(
+        "type"
+      )}-dashboard/${localStorage.getItem("username")}/research-topics`:
         setHeader("topics");
         break;
-      case `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
-        "username"
-      )}/evaluate-documents`:
+      case `/v1/${localStorage.getItem(
+        "type"
+      )}-dashboard/${localStorage.getItem("username")}/evaluate-documents`:
         setHeader("documents");
         break;
-      case `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
-        "username"
-      )}/chat`:
+      case `/v1/${localStorage.getItem(
+        "type"
+      )}-dashboard/${localStorage.getItem("username")}/chat`:
         setHeader("chat");
         break;
       default:
@@ -121,7 +120,7 @@ const SupervisorDashboard = () => {
               <p
                 onClick={() => {
                   history(
-                    `/${localStorage.getItem(
+                    `/v1/${localStorage.getItem(
                       "type"
                     )}-dashboard/${localStorage.getItem("username")}`
                   );
@@ -140,7 +139,7 @@ const SupervisorDashboard = () => {
               style={{ color: "white", marginTop: "50px", cursor: "pointer" }}
               onClick={() => {
                 history(
-                  `/${localStorage.getItem(
+                  `/v1/${localStorage.getItem(
                     "type"
                   )}-dashboard/${localStorage.getItem("username")}`
                 );
@@ -164,19 +163,19 @@ const SupervisorDashboard = () => {
           mode="vertical"
           selectedKeys={
             location.pathname ===
-            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
-              "username"
-            )}/research-topics`
+            `/v1/${localStorage.getItem(
+              "type"
+            )}-dashboard/${localStorage.getItem("username")}/research-topics`
               ? ["0"]
               : location.pathname ===
-                `/${localStorage.getItem(
+                `/v1/${localStorage.getItem(
                   "type"
                 )}-dashboard/${localStorage.getItem(
                   "username"
                 )}/evaluate-documents`
               ? ["1"]
               : location.pathname ===
-                  `/${localStorage.getItem(
+                  `/v1/${localStorage.getItem(
                     "type"
                   )}-dashboard/${localStorage.getItem("username")}/chat` && [
                   "2",
@@ -189,7 +188,7 @@ const SupervisorDashboard = () => {
             onClick={() => {
               setHeader("topics");
               history(
-                `/${localStorage.getItem(
+                `/v1/${localStorage.getItem(
                   "type"
                 )}-dashboard/${localStorage.getItem(
                   "username"
@@ -205,7 +204,7 @@ const SupervisorDashboard = () => {
             onClick={() => {
               setHeader("documents");
               history(
-                `/${localStorage.getItem(
+                `/v1/${localStorage.getItem(
                   "type"
                 )}-dashboard/${localStorage.getItem(
                   "username"
@@ -221,7 +220,7 @@ const SupervisorDashboard = () => {
             onClick={() => {
               setHeader("chat");
               history(
-                `/${localStorage.getItem(
+                `/v1/${localStorage.getItem(
                   "type"
                 )}-dashboard/${localStorage.getItem("username")}/chat`
               );
@@ -254,7 +253,7 @@ const SupervisorDashboard = () => {
         >
           <h1 id="header" style={{ fontFamily: "serif", fontSize: "20px" }}>
             {location.pathname ===
-              `/${localStorage.getItem(
+              `/v1/${localStorage.getItem(
                 "type"
               )}-dashboard/${localStorage.getItem("username")}` && "Dashboard"}
           </h1>
@@ -288,21 +287,29 @@ const SupervisorDashboard = () => {
             </Breadcrumb.Item>
           </Breadcrumb>
           {location.pathname ===
-            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
-              "username"
-            )}` && <CarouselView />}
+            `/v1/${localStorage.getItem(
+              "type"
+            )}-dashboard/${localStorage.getItem("username")}` && (
+            <CarouselView />
+          )}
           {location.pathname ===
-            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+            `/v1/${localStorage.getItem(
+              "type"
+            )}-dashboard/${localStorage.getItem(
               "username"
             )}/research-topics` && <ResearchTopics />}
           {location.pathname ===
-            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
+            `/v1/${localStorage.getItem(
+              "type"
+            )}-dashboard/${localStorage.getItem(
               "username"
             )}/evaluate-documents` && <EvaluateDocuments />}
           {location.pathname ===
-            `/${localStorage.getItem("type")}-dashboard/${localStorage.getItem(
-              "username"
-            )}/chat` && <ChatWithGroups />}
+            `/v1/${localStorage.getItem(
+              "type"
+            )}-dashboard/${localStorage.getItem("username")}/chat` && (
+            <ChatWithGroups />
+          )}
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Copyright © {date.getFullYear()} SLIIT
