@@ -32,3 +32,4 @@ app.listen(PORT, () => {
 
 app.use("/api/auth", require("./BACKEND/routes/auth"));
 app.use("/research-topic", require("./BACKEND/routes/ResearchTopic"));
+app.use("/mark-scheme", require("./BACKEND/routes/MarkScheme"));
