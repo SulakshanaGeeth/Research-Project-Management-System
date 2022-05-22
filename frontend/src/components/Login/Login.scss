@@ -93,3 +93,30 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
+
+.status {
+  background-color: #85839c;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  padding: 4px 10px;
+  text-transform: uppercase;
+  width: max-content;
+
+  &.number {
+    align-items: center;
+    background-color: #f3f3f3;
+    color: #85839c;
+    cursor: pointer;
+    display: flex;
+    padding: 4px 10px 4px 6px;
+
+    .icon {
+      margin-right: 5px;
+      width: 10px;
+    }
+  }
+}

@@ -42,18 +42,18 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   //controller for login
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username && !password) {
+  if (!email && !password) {
     //backend validation
     return res
       .status(400)
-      .json({ success: false, error: "Please enter username and password" });
+      .json({ success: false, error: "Please enter email and password" });
   } //400 Bad Request
 
   try {
     const user = await User.findOne({
-      username: { $regex: new RegExp(username, "i") },
+      email,
     }).select("+password"); //match two passwords
 
     if (!user) {
