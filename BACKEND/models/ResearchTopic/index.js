@@ -13,6 +13,7 @@ const Topic = new Schema({
   status: String,
   acceptOrRejectBy: String,
   supervisorName: String,
+  attachment: String,
 });
 
 const newTopic = mongoose.model("research-topic", Topic);

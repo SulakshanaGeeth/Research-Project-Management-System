@@ -14,6 +14,7 @@ exports.register = async (req, res) => {
     status = "PENDING",
     acceptOrRejectBy = "NONE",
     supervisorName,
+    attachment = "https://drive.google.com/file/d/120D8ZvQs9R97wiXo8JZesq13vb6ctFsK/preview",
   } = req.body;
   const members = Number(req.body.members);
 
@@ -29,14 +30,24 @@ exports.register = async (req, res) => {
     status,
     acceptOrRejectBy,
     supervisorName,
+    attachment,
   });
 
-  const isAvailable = await Topic.findOne({
-    //check the availability of saving data
-    topicId: topicId,
-    topicName: topicName,
-    userEmail: userEmail,
-  });
+  const isAvailable =
+    (await Topic.findOne({
+      //check the availability of saving data
+      topicId: topicId,
+    })) ||
+    (await Topic.findOne({
+      //check the availability of saving data
+
+      topicName: topicName,
+    })) ||
+    (await Topic.findOne({
+      //check the availability of saving data
+
+      userEmail: userEmail,
+    }));
 
   if (isAvailable) {
     // if satisfied return proper error
@@ -71,7 +82,14 @@ exports.getTopic = async (req, res) => {
 exports.updateTopic = async (req, res) => {
   //backend route for updating relavant data and passing back
   const { id } = req.params;
-  const { topicName, userEmail, topicCat, faculty, date } = req.body;
+  const {
+    topicName,
+    userEmail,
+    topicCat,
+    faculty,
+    date,
+    attachment = "https://drive.google.com/file/d/120D8ZvQs9R97wiXo8JZesq13vb6ctFsK/preview",
+  } = req.body;
   const members = Number(req.body.members);
 
   await Topic.findByIdAndUpdate(id, {
@@ -81,6 +99,7 @@ exports.updateTopic = async (req, res) => {
     faculty,
     date,
     members,
+    attachment,
   }) //find the document by and update the relavant data
     .then(() => res.json({ success: true }))
     .catch((error) => res.json({ success: false, Error: error }));
@@ -136,7 +155,7 @@ exports.notifyStudentBySupervisor = async (req, res) => {
       text: message,
     });
 
-    res
+    return res
       .status(200)
       .json({ success: true, verify: "Email is sent to the user" });
   } catch (error) {
