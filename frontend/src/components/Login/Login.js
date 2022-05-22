@@ -64,7 +64,6 @@ const Login = () => {
         else history(`/student-dashboard/${username?.[0]}`);
 
         setLoading(false);
-        window.location.reload();
       }, 5000);
     } catch (error) {
       setError(error.response.data.error);
