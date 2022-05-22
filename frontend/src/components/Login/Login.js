@@ -55,13 +55,12 @@ const Login = () => {
       setTimeout(() => {
         // set a 5seconds timeout for authentication
 
-        if (data.type === "Admin") history(`/admin-dashboard/${username?.[0]}`);
+        if (data.type === "Admin") history(`/admin-dashboard`);
         else if (data.type === "Staff") history(`/staff-register`);
         else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
-          history(`/${data.type}-dashboard/${username?.[0]}`);
-        else if (data.type === "panel")
-          history(`/panel-dashboard/${username?.[0]}`);
-        else history(`/student-dashboard/${username?.[0]}`);
+          history(`/v1/${data.type}-dashboard/${username?.[0]}`);
+        else if (data.type === "panel") history(`/panel-dashboard`);
+        else history(`/student-dashboard`);
 
         setLoading(false);
       }, 5000);

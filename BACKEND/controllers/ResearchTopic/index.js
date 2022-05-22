@@ -155,7 +155,7 @@ exports.notifyStudentBySupervisor = async (req, res) => {
       text: message,
     });
 
-    res
+    return res
       .status(200)
       .json({ success: true, verify: "Email is sent to the user" });
   } catch (error) {

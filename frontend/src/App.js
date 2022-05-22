@@ -60,7 +60,7 @@ const App = () => {
 
           {/* Supervisor Routes Goes Here */}
           <Route
-            path="/:supervisorType/:username"
+            path="/v1/:supervisorType/:username"
             element={
               <PrivateRoute>
                 <SupervisorDashboard />
@@ -68,7 +68,7 @@ const App = () => {
             }
           />
           <Route
-            path="/:supervisorType/:username/research-topics"
+            path="/v1/:supervisorType/:username/research-topics"
             element={
               <PrivateRoute>
                 <SupervisorDashboard />
@@ -76,7 +76,7 @@ const App = () => {
             }
           />
           <Route
-            path="/:supervisorType/:username/evaluate-documents"
+            path="/v1/:supervisorType/:username/evaluate-documents"
             element={
               <PrivateRoute>
                 <SupervisorDashboard />
@@ -84,7 +84,7 @@ const App = () => {
             }
           />
           <Route
-            path="/:supervisorType/:username/chat"
+            path="/v1/:supervisorType/:username/chat"
             element={
               <PrivateRoute>
                 <SupervisorDashboard />
