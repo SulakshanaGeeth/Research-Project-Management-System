@@ -4,7 +4,6 @@ const sendEmail = require("../../utils/sendEmail");
 //controller for registering topics
 exports.register = async (req, res) => {
   const {
-    topicId,
     topicName,
     userEmail,
     topicCat,
@@ -19,7 +18,6 @@ exports.register = async (req, res) => {
   const members = Number(req.body.members);
 
   const newTopic = new Topic({
-    topicId,
     topicName,
     userEmail,
     topicCat,

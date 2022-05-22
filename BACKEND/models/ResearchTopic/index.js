@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Topic = new Schema({
-  topicId: String,
   topicName: String,
   userEmail: String,
   topicCat: String,

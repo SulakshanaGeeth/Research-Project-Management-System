@@ -84,8 +84,10 @@ function ResearchTopics() {
     if (type === "accept") {
       setVisible(true);
       setValue(value);
-    } else if (type === "reject") setReject(true);
-    else {
+    } else if (type === "reject") {
+      setReject(true);
+      setValue(value);
+    } else {
       setPreview(true);
       setValue(value);
     }
