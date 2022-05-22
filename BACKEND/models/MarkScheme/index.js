@@ -5,7 +5,7 @@ const MarkScheme = new Schema({
   schemeName: String,
   desc: String,
   steps: String,
-  totalMarks: String,
+  totalMarks: Number,
 });
 
 const newMarkScheme = mongoose.model("mark-scheme", MarkScheme);
