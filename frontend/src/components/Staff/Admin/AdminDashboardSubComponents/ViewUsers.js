@@ -38,7 +38,7 @@ const ViewUsers = () => {
       await axios.delete(`/api/auth/delete/${id}`);
       notification.info({
         message: `Notification`,
-        description: "Successfully Deleted the User 😘",
+        description: "Successfully Deleted User 😘",
         placement: "top",
       });
     } catch (error) {
@@ -81,8 +81,7 @@ const ViewUsers = () => {
                     actions={[
                       [
                         <>
-                          {localStorage.getItem("username") ===
-                            value?.username && (
+                          
                             <Link
                               to={`/admin-dashboard/${localStorage.getItem(
                                 "username"
@@ -94,13 +93,12 @@ const ViewUsers = () => {
                                 <span>Edit</span>
                               </div>
                             </Link>
-                          )}
+                          
                         </>,
                       ],
                       [
                         <>
-                          {localStorage.getItem("username") ===
-                            value?.username && (
+                          
                             <div
                               style={{ color: "red" }}
                               onClick={() => showModal()}
@@ -110,7 +108,7 @@ const ViewUsers = () => {
                               <br />
                               <span>Delete</span>
                             </div>
-                          )}
+                          
                         </>,
                       ],
                     ]}
