@@ -202,7 +202,7 @@ exports.get = async (req, res) => {
 
 exports.getById = async (req, res) => {
   const { id } = req.params;
-  await User.findOne({ empId: id })
+  await User.findById(id)
     .then((user) => res.json(user))
     .catch((err) => res.status(500).json({ err }));
 };
