@@ -16,6 +16,7 @@ import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 
 //Admin Imports
 import ViewUsers from "./components/Staff/Admin/AdminDashboardSubComponents/ViewUsers";
+import EditUsers from "./components/Staff/Admin/AdminDashboardSubComponents/EditUsers";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -99,6 +100,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <ViewUsers />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin-dashboard/:username/edit/:id"
+            element={
+              <PrivateRoute>
+                <EditUsers />
               </PrivateRoute>
             }
           />
