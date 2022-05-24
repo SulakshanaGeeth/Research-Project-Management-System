@@ -77,38 +77,33 @@ const ViewUsers = () => {
                 >
                   <Card
                     style={{ width: 360, marginTop: 16 }}
-                    
                     actions={[
                       [
                         <>
-                          
-                            <Link
-                              to={`/admin-dashboard/${localStorage.getItem(
-                                "username"
-                              )}/edit/${value?._id}`}
-                            >
-                              <div style={{ color: "green" }}>
-                                <CheckCircleOutlined />
-                                <br />
-                                <span>Edit</span>
-                              </div>
-                            </Link>
-                          
+                          <Link
+                            to={`/admin-dashboard/${localStorage.getItem(
+                              "username"
+                            )}/edit/${value?._id}`}
+                          >
+                            <div style={{ color: "green" }}>
+                              <CheckCircleOutlined />
+                              <br />
+                              <span>Edit</span>
+                            </div>
+                          </Link>
                         </>,
                       ],
                       [
                         <>
-                          
-                            <div
-                              style={{ color: "red" }}
-                              onClick={() => showModal()}
-                            >
-                              {" "}
-                              <CloseCircleOutlined />
-                              <br />
-                              <span>Delete</span>
-                            </div>
-                          
+                          <div
+                            style={{ color: "red" }}
+                            onClick={() => showModal()}
+                          >
+                            {" "}
+                            <CloseCircleOutlined />
+                            <br />
+                            <span>Delete</span>
+                          </div>
                         </>,
                       ],
                     ]}
