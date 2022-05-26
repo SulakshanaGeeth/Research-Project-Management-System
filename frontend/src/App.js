@@ -15,8 +15,6 @@ import PrivateRoute from "./routes/PrivateRoute";
 import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 
 //Admin Imports
-import ViewUsers from "./components/Staff/Admin/AdminDashboardSubComponents/ViewUsers";
-import EditUsers from "./components/Staff/Admin/AdminDashboardSubComponents/EditUsers";
 import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 const App = () => {
@@ -123,7 +121,7 @@ const App = () => {
             }
           />
 
-<Route
+          <Route
             path="/k/admin-dashboard/:username/createmarkingscheme"
             element={
               <PrivateRoute>
