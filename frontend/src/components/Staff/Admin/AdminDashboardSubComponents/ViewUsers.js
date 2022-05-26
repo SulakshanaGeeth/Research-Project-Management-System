@@ -81,7 +81,7 @@ const ViewUsers = () => {
                       [
                         <>
                           <Link
-                            to={`/admin-dashboard/${localStorage.getItem(
+                            to={`/k/admin-dashboard/${localStorage.getItem(
                               "username"
                             )}/edit/${value?._id}`}
                           >

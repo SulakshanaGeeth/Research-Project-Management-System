@@ -55,7 +55,7 @@ const Login = () => {
       setTimeout(() => {
         // set a 5seconds timeout for authentication
 
-        if (data.type === "Admin") history(`/admin-dashboard`);
+        if (data.type === "Admin") history(`/k/admin-dashboard`);
         else if (data.type === "Staff") history(`/staff-register`);
         else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
           history(`/v1/${data.type}-dashboard/${username?.[0]}`);
