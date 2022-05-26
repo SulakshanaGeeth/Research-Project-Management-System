@@ -52,6 +52,9 @@ const ViewUsers = () => {
 
   return (
     <>
+      <center>
+        <h1>View Users</h1>
+      </center>
       {loading === false ? (
         <center>
           <Spin style={{ marginTop: "200px" }} />

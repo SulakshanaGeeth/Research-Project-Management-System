@@ -11,6 +11,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import CreateItem from "./AdminDashboardSubComponents/CreateMarkScheme";
 import EditUsers from "./AdminDashboardSubComponents/EditUsers";
 import ViewUsers from "./AdminDashboardSubComponents/ViewUsers";
+import DashboardLogo from "./assets/Alogo.png";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -48,13 +49,36 @@ const AdminDashboard = () => {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <center>
-          <HomeOutlined
-            style={{ color: "white", marginTop: "50px", cursor: "pointer" }}
-          />
-        </center>
-
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "sticky",
+          top: 0,
+          left: 0,
+        }}
+      >
+        <br />
+        <br />
+        {collapsed === false ? (
+          <div className="logo">
+            <center>
+              <p>
+                <img src={DashboardLogo} className="img" />
+                SLIIT
+              </p>
+            </center>
+          </div>
+        ) : (
+          <center>
+            <HomeOutlined
+              style={{ color: "white", marginTop: "50px", cursor: "pointer" }}
+            />
+          </center>
+        )}
         <br />
         <br />
         <br />
@@ -72,7 +96,9 @@ const AdminDashboard = () => {
             pathname ===
               `/k/admin-dashboard/${localStorage.getItem("username")}/view` ||
             pathname ===
-              `/k/admin-dashboard/${localStorage.getItem("username")}/edit/${id}`
+              `/k/admin-dashboard/${localStorage.getItem(
+                "username"
+              )}/edit/${id}`
               ? ["1"]
               : ["0"]
           }
@@ -82,11 +108,13 @@ const AdminDashboard = () => {
             icon={<PullRequestOutlined />}
             onClick={() => {
               history(
-                `/k/admin-dashboard/${localStorage.getItem("username")}/createmarkingscheme`
+                `/k/admin-dashboard/${localStorage.getItem(
+                  "username"
+                )}/createmarkingscheme`
               );
             }}
           >
-            Add Item
+            Create Mark Scheme
           </Menu.Item>
           <Menu.Item
             key="1"
@@ -97,7 +125,7 @@ const AdminDashboard = () => {
               );
             }}
           >
-            View Items
+            View Users
           </Menu.Item>
         </Menu>
 
@@ -134,7 +162,9 @@ const AdminDashboard = () => {
             <Breadcrumb.Item>{username}</Breadcrumb.Item>
           </Breadcrumb>
           {(pathname ===
-            `/k/admin-dashboard/${localStorage.getItem("username")}/createmarkingscheme` ||
+            `/k/admin-dashboard/${localStorage.getItem(
+              "username"
+            )}/createmarkingscheme` ||
             pathname ===
               `/admin-dashboard/${localStorage.getItem("username")}`) && (
             <CreateItem />
