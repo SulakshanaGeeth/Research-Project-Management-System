@@ -17,6 +17,7 @@ import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 //Admin Imports
 import ViewUsers from "./components/Staff/Admin/AdminDashboardSubComponents/ViewUsers";
 import EditUsers from "./components/Staff/Admin/AdminDashboardSubComponents/EditUsers";
+import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -95,19 +96,38 @@ const App = () => {
               </PrivateRoute>
             }
           />
+
+          {/* Admin Routes Goes Here */}
           <Route
-            path="/admin-dashboard/:username/view"
+            path="/k/admin-dashboard/:username/view"
             element={
               <PrivateRoute>
-                <ViewUsers />
+                <AdminDashboard />
               </PrivateRoute>
             }
           />
           <Route
-            path="/admin-dashboard/:username/edit/:id"
+            path="/k/admin-dashboard/:username/edit/:id"
             element={
               <PrivateRoute>
-                <EditUsers />
+                <AdminDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/k/admin-dashboard/:username"
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
+              </PrivateRoute>
+            }
+          />
+
+<Route
+            path="/k/admin-dashboard/:username/createmarkingscheme"
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
               </PrivateRoute>
             }
           />
