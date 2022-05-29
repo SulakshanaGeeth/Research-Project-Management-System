@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "antd/dist/antd.css";
 import PasswordResetRequest from "../Register/PasswordResetRequest";
+import { BACKEND_BASE_URL } from "../constant";
 
 const { Header } = Layout;
 
@@ -40,7 +41,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        "/api/auth/login",
+        `${BACKEND_BASE_URL}/api/auth/login`,
         { email, password },
         config
       );
@@ -69,7 +70,7 @@ const Login = () => {
       setAvailable(error.response.data.available);
       setLoading(false);
       setIsError(true);
-      setUsername("");
+      setEmail("");
       setPassword("");
       setTimeout(() => {
         setError("");

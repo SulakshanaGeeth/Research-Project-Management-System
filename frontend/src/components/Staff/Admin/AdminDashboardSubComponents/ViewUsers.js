@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../../../constant";
 
 const { Meta } = Card;
 
@@ -18,7 +19,7 @@ const ViewUsers = () => {
 
   useEffect(() => {
     (async () => {
-      await axios.get("/api/auth/").then((res) => {
+      await axios.get(`${BACKEND_BASE_URL}/api/auth/`).then((res) => {
         setData(res.data);
         setLoading(true);
       });

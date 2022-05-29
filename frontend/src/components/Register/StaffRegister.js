@@ -23,6 +23,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "antd/dist/antd.css";
+import { BACKEND_BASE_URL } from "../constant";
 
 const { Header } = Layout;
 const { Option } = Select;
@@ -78,13 +79,13 @@ const StaffRegister = () => {
 
     try {
       await axios.post(
-        "/api/auth/register",
+        `${BACKEND_BASE_URL}/api/auth/register`,
         { username, email, password, type },
         config
       );
 
       await axios.post(
-        "/api/auth/notifyuser",
+        `${BACKEND_BASE_URL}/api/auth/notifyuser`,
         { email, username, password, type },
         config
       );
