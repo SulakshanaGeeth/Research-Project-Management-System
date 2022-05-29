@@ -12,6 +12,7 @@ import {
 import { CloseCircleFilled, SafetyCertificateFilled } from "@ant-design/icons";
 import axios from "axios";
 import moment from "moment";
+import { BACKEND_BASE_URL } from "../../../constant";
 
 function ResearchTopics() {
   const [data, setData] = useState([]);
@@ -23,7 +24,7 @@ function ResearchTopics() {
 
   useEffect(() => {
     (async () =>
-      await axios.get("/research-topic/").then((res) => {
+      await axios.get(`${BACKEND_BASE_URL}/research-topic/`).then((res) => {
         setData(res?.data.filter((el) => el?.status === "PENDING"));
         setLoading(false);
       }))();
@@ -43,7 +44,7 @@ function ResearchTopics() {
       status = "REJECTED";
     }
     await axios
-      .put(`/research-topic/acceptOrReject/${value?._id}`, {
+      .put(`${BACKEND_BASE_URL}/research-topic/acceptOrReject/${value?._id}`, {
         status,
         acceptOrRejectBy,
         lastModified,
@@ -63,15 +64,18 @@ function ResearchTopics() {
           });
         }
       });
-    await axios.post("/research-topic/notifyStudentBySupervisor", {
-      userEmail,
-      topicName,
-      status,
-      email,
-      supervisor,
-    });
+    await axios.post(
+      `${BACKEND_BASE_URL}/research-topic/notifyStudentBySupervisor`,
+      {
+        userEmail,
+        topicName,
+        status,
+        email,
+        supervisor,
+      }
+    );
     await axios
-      .get("/research-topic/")
+      .get(`${BACKEND_BASE_URL}/research-topic/`)
       .then((res) => {
         setData(res?.data.filter((el) => el?.status === "PENDING"));
         setVisible(false);
@@ -103,7 +107,7 @@ function ResearchTopics() {
     setLoading(true);
     if (toggle)
       await axios
-        .get("/research-topic")
+        .get(`${BACKEND_BASE_URL}/research-topic`)
         .then((res) => {
           setData(res?.data.filter((el) => el?.status !== "PENDING"));
           setLoading(false);
@@ -111,7 +115,7 @@ function ResearchTopics() {
         .catch((error) => alert(error));
     else
       await axios
-        .get("/research-topic")
+        .get(`${BACKEND_BASE_URL}/research-topic`)
         .then((res) => {
           setData(res?.data.filter((el) => el?.status === "PENDING"));
           setLoading(false);

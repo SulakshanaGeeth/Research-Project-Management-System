@@ -18,6 +18,7 @@ import {
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../../../constant";
 
 const layout = {
   labelCol: {
@@ -47,7 +48,7 @@ const EditUsers = () => {
 
   useEffect(() => {
     (async () =>
-      await axios.get(`/api/auth/get/${id}`).then((res) => {
+      await axios.get(`${BACKEND_BASE_URL}/api/auth/get/${id}`).then((res) => {
         form.setFieldsValue({
           username: res?.data?.username,
           email: res?.data?.email,
@@ -79,7 +80,7 @@ const EditUsers = () => {
     try {
       await axios.put(
         //use axios API
-        `/api/auth/update/${id}`,
+        `${BACKEND_BASE_URL}/api/auth/update/${id}`,
 
         formData,
 
