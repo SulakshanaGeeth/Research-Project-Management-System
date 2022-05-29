@@ -54,7 +54,7 @@ exports.createStudentGroup = async (req, res) => {
 //controller for getting Student Groups
 exports.getStudentGroups = async (req, res) => {
   await StudentGroup.find()
-    .then((getTopics) => res.json(getTopics))
+    .then((groups) => res.json(groups))
     .catch((error) => res.status(500).json({ success: false, error: error }));
 };
 
@@ -62,8 +62,7 @@ exports.getStudentGroups = async (req, res) => {
 exports.getStudentGroup = async (req, res) => {
   const GroupName = req.params.id;
 
-  console.log(GroupName);
-  await StudentGroup.find({ group_name: GroupName }) //find by the document by id
+  await StudentGroup.findOne({ group_name: GroupName }) //find by the document by id
     .then((StudentGroup) => res.json(StudentGroup))
     .catch((error) => res.status(500).json({ success: false, error: error }));
 };
@@ -72,7 +71,6 @@ exports.getStudentGroup = async (req, res) => {
 exports.updateStudentGroup = async (req, res) => {
   //backend route for updating relavant data and passing back
   const _id = req.params.id;
-  console.log(req.params);
 
   const {
     group_name,
