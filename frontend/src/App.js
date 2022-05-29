@@ -94,6 +94,14 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/v1/:supervisorType/:username/chat/:groupName"
+            element={
+              <PrivateRoute>
+                <SupervisorDashboard />
+              </PrivateRoute>
+            }
+          />
 
           {/* Admin Routes Goes Here */}
           <Route
