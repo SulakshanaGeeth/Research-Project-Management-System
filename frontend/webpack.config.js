@@ -9,6 +9,11 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 module.exports = {
   mode: "development",
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.[hash].js",
+  },
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
@@ -52,13 +57,10 @@ module.exports = {
   },
   devServer: {
     //dev server configuration
-    static: {
-      directory: path.join(__dirname, "public"),
-    },
     compress: true,
     port: 3000,
     open: true,
-    allowedHosts: ["all"],
+    historyApiFallback: true,
   },
   plugins: [htmlPlugin],
 };
