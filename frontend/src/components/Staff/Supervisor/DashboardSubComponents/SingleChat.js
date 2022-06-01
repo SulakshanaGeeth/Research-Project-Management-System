@@ -24,6 +24,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   const [disable, setDisable] = useState(true);
+  const [edit, setEdit] = useState(true);
 
   const [comment, setComment] = useState("");
   const [selectedKey, setSelectedKey] = useState("");
@@ -80,6 +81,7 @@ const App = () => {
 
   const handleEnable = (id) => {
     setDisable(!disable);
+    setEdit(!edit);
     setSelectedKey(id);
   };
 
@@ -205,6 +207,9 @@ const App = () => {
                         <TextArea
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
+                          placeholder={
+                            "Anything you want to add related to the topic given, Please feel free to mention"
+                          }
                         />
                       </Form.Item>
                       <Form.Item>
