@@ -13,12 +13,13 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "antd/dist/antd.css";
 import PasswordResetRequest from "../Register/PasswordResetRequest";
+import { BACKEND_BASE_URL } from "../constant";
 
 const { Header } = Layout;
 
 const Login = () => {
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [available, setAvailable] = useState("");
   const [loading, setLoading] = useState(false); //additional
@@ -40,36 +41,36 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        "/api/auth/login",
-        { username, password },
+        `${BACKEND_BASE_URL}/api/auth/login`,
+        { email, password },
         config
       );
 
+      const username = data?.username.split(" ");
+
       localStorage.setItem("authToken", data.token); //set the browser caching or local storage for globally accessed anywhere in the application
-      localStorage.setItem("username", data.username);
+      localStorage.setItem("username", username?.[0]);
       localStorage.setItem("email", data.email);
       localStorage.setItem("type", data?.type);
 
       setTimeout(() => {
         // set a 5seconds timeout for authentication
 
-        if (data.type === "Admin") history(`/admin-dashboard/${data.username}`);
+        if (data.type === "Admin") history(`/k/admin-dashboard`);
         else if (data.type === "Staff") history(`/staff-register`);
         else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
-          history(`/${data.type}-dashboard/${data.username}`);
-        else if (data.type === "panel")
-          history(`/panel-dashboard/${data.username}`);
-        else history(`/student-dashboard/${data.username}`);
+          history(`/v1/${data.type}-dashboard/${username?.[0]}`);
+        else if (data.type === "panel") history(`/panel-dashboard`);
+        else history(`/student-dashboard`);
 
         setLoading(false);
-        window.location.reload();
       }, 5000);
     } catch (error) {
       setError(error.response.data.error);
       setAvailable(error.response.data.available);
       setLoading(false);
       setIsError(true);
-      setUsername("");
+      setEmail("");
       setPassword("");
       setTimeout(() => {
         setError("");
@@ -117,15 +118,15 @@ const Login = () => {
                 Log in to your account if you already have an account
               </div>
               <Form onFinish={loginHandler}>
-                <label>Username</label>
+                <label>Email</label>
                 <Input
-                  label={"USERNAME"}
-                  name={"username"}
+                  label={"EMAIL"}
+                  name={"email"}
                   size={"large"}
-                  placeholder={"e.g John Doe"}
+                  placeholder={"e.g admin@example.com"}
                   required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <label>Password</label>
                 <Input.Password

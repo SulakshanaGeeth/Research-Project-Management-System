@@ -1,10 +1,10 @@
-/* eslint-disable import/no-anonymous-default-export */
 import { Modal, Button, Tooltip, Input } from "antd";
 import React, { useState } from "react";
 import { Form } from "antd";
 import { InfoCircleOutlined, MailOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../constant";
 
 const layout = {
   labelCol: {
@@ -21,7 +21,7 @@ const tailLayout = {
   },
 };
 
-export default () => {
+const PasswordResetRequest = ({ hidePopOver }) => {
   const [visible, setVisible] = useState(false);
 
   const [email, setEmail] = useState("");
@@ -41,7 +41,7 @@ export default () => {
 
     try {
       const { data } = await axios.post(
-        "/api/auth/forgotpassword",
+        `${BACKEND_BASE_URL}/api/auth/forgotpassword`,
         { email },
         config
       );
@@ -74,13 +74,18 @@ export default () => {
   return (
     <>
       {location.pathname === "/" ? (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <a className="forget-text" onClick={showModal}>
           Forgot password?
         </a>
       ) : (
         <center>
-          <Button type="primary" onClick={showModal}>
+          <Button
+            type="primary"
+            onClick={() => {
+              showModal();
+              hidePopOver(false);
+            }}
+          >
             Click Here To Request
           </Button>
         </center>
@@ -144,3 +149,5 @@ export default () => {
     </>
   );
 };
+
+export default PasswordResetRequest;

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Logo from "./assets/logo.png";
 import "../Login/Login.scss";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { BACKEND_BASE_URL } from "../constant";
 
 const { Header } = Layout;
 
@@ -41,7 +42,7 @@ const ResetPassword = () => {
   const resetPasswordHandler = async () => {
     setLoading(true);
     try {
-      await axios.put(`/api/auth/passwordreset/${resetToken}`, { password });
+      await axios.put(`${BACKEND_BASE_URL}/api/auth/passwordreset/${resetToken}`, { password });
 
       setTimeout(() => {
         notification.info({

@@ -42,18 +42,18 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   //controller for login
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username && !password) {
+  if (!email && !password) {
     //backend validation
     return res
       .status(400)
-      .json({ success: false, error: "Please enter username and password" });
+      .json({ success: false, error: "Please enter email and password" });
   } //400 Bad Request
 
   try {
     const user = await User.findOne({
-      username: { $regex: new RegExp(username, "i") },
+      email,
     }).select("+password"); //match two passwords
 
     if (!user) {
@@ -202,7 +202,7 @@ exports.get = async (req, res) => {
 
 exports.getById = async (req, res) => {
   const { id } = req.params;
-  await User.findOne({ empId: id })
+  await User.findById(id)
     .then((user) => res.json(user))
     .catch((err) => res.status(500).json({ err }));
 };
@@ -210,12 +210,12 @@ exports.getById = async (req, res) => {
 exports.updateById = async (req, res) => {
   const { id } = req.params;
 
-  const { email, username, password } = req.body;
+  const { email, username, type } = req.body;
 
   await User.findByIdAndUpdate(id, {
     email,
     username,
-    password,
+    type,
   })
     .then(() => res.json({ message: "Successfully Update the Employee" }))
     .catch((err) => res.status(500).json({ err }));

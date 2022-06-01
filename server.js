@@ -31,3 +31,7 @@ app.listen(PORT, () => {
 });
 
 app.use("/api/auth", require("./BACKEND/routes/auth"));
+app.use("/research-topic", require("./BACKEND/routes/ResearchTopic"));
+app.use("/student-group", require("./BACKEND/routes/StudentGroups"));
+app.use("/mark-scheme", require("./BACKEND/routes/MarkScheme"));
+app.use("/chat", require("./BACKEND/routes/Chat"));
