@@ -17,6 +17,9 @@ import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 //Admin Imports
 import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
+//Student Imports
+import StudentGroup from "./components/Student/StudentGroup";
+
 const App = () => {
   // The back-to-top button is hidden at the beginning
   const [showButton, setShowButton] = useState(false);
@@ -49,6 +52,9 @@ const App = () => {
             element={<ResetPassword />}
           />
           <Route path="*" element={<PageNotFound />} />
+
+          {/* Student Routes Goes Here */}
+          <Route path="/student-group" element={<StudentGroup />}></Route>
 
           {/* Private Routes Goes Here */}
 
