@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { BACKEND_BASE_URL } from "./../constant/index";
 
 let StudentGroup = () => {
   // var std_email = localStorage.getItem("studentemail");
@@ -31,7 +32,7 @@ let StudentGroup = () => {
       member4_Email,
     };
     axios
-      .post("/student-group/create", newStudentGroup)
+      .post(`${BACKEND_BASE_URL}/student-group/create`, newStudentGroup)
       .then(() => {
         alert("New Student Group Added");
         // props.history.push('/dashbord/');
