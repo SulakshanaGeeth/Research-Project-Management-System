@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../../../constant";
 
 const { Meta } = Card;
 
@@ -18,7 +19,7 @@ const ViewUsers = () => {
 
   useEffect(() => {
     (async () => {
-      await axios.get("/api/auth/").then((res) => {
+      await axios.get(`${BACKEND_BASE_URL}/api/auth/`).then((res) => {
         setData(res.data);
         setLoading(true);
       });
@@ -52,6 +53,9 @@ const ViewUsers = () => {
 
   return (
     <>
+      <center>
+        <h1>View Users</h1>
+      </center>
       {loading === false ? (
         <center>
           <Spin style={{ marginTop: "200px" }} />
@@ -77,38 +81,33 @@ const ViewUsers = () => {
                 >
                   <Card
                     style={{ width: 360, marginTop: 16 }}
-                    
                     actions={[
                       [
                         <>
-                          
-                            <Link
-                              to={`/admin-dashboard/${localStorage.getItem(
-                                "username"
-                              )}/edit/${value?._id}`}
-                            >
-                              <div style={{ color: "green" }}>
-                                <CheckCircleOutlined />
-                                <br />
-                                <span>Edit</span>
-                              </div>
-                            </Link>
-                          
+                          <Link
+                            to={`/k/admin-dashboard/${localStorage.getItem(
+                              "username"
+                            )}/edit/${value?._id}`}
+                          >
+                            <div style={{ color: "green" }}>
+                              <CheckCircleOutlined />
+                              <br />
+                              <span>Edit</span>
+                            </div>
+                          </Link>
                         </>,
                       ],
                       [
                         <>
-                          
-                            <div
-                              style={{ color: "red" }}
-                              onClick={() => showModal()}
-                            >
-                              {" "}
-                              <CloseCircleOutlined />
-                              <br />
-                              <span>Delete</span>
-                            </div>
-                          
+                          <div
+                            style={{ color: "red" }}
+                            onClick={() => showModal()}
+                          >
+                            {" "}
+                            <CloseCircleOutlined />
+                            <br />
+                            <span>Delete</span>
+                          </div>
                         </>,
                       ],
                     ]}

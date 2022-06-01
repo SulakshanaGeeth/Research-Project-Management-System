@@ -15,7 +15,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 
 //Admin Imports
-import ViewUsers from "./components/Staff/Admin/AdminDashboardSubComponents/ViewUsers";
+import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
 import StudentGroup from "./components/Student/StudentGroup";
@@ -101,10 +101,45 @@ const App = () => {
             }
           />
           <Route
-            path="/admin-dashboard/:username/view"
+            path="/v1/:supervisorType/:username/chat/:groupName"
             element={
               <PrivateRoute>
-                <ViewUsers />
+                <SupervisorDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Admin Routes Goes Here */}
+          <Route
+            path="/k/admin-dashboard/:username/view"
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/k/admin-dashboard/:username/edit/:id"
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/k/admin-dashboard/:username"
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/k/admin-dashboard/:username/createmarkingscheme"
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
               </PrivateRoute>
             }
           />

@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "antd/dist/antd.css";
 import PasswordResetRequest from "../Register/PasswordResetRequest";
+import { BACKEND_BASE_URL } from "../constant";
 
 const { Header } = Layout;
 
@@ -40,7 +41,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        "/api/auth/login",
+        `${BACKEND_BASE_URL}/api/auth/login`,
         { email, password },
         config
       );
@@ -55,7 +56,7 @@ const Login = () => {
       setTimeout(() => {
         // set a 5seconds timeout for authentication
 
-        if (data.type === "Admin") history(`/admin-dashboard`);
+        if (data.type === "Admin") history(`/k/admin-dashboard`);
         else if (data.type === "Staff") history(`/staff-register`);
         else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
           history(`/v1/${data.type}-dashboard/${username?.[0]}`);
@@ -69,7 +70,7 @@ const Login = () => {
       setAvailable(error.response.data.available);
       setLoading(false);
       setIsError(true);
-      setUsername("");
+      setEmail("");
       setPassword("");
       setTimeout(() => {
         setError("");

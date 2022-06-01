@@ -4,6 +4,7 @@ import { Form } from "antd";
 import { InfoCircleOutlined, MailOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../constant";
 
 const layout = {
   labelCol: {
@@ -40,7 +41,7 @@ const PasswordResetRequest = ({ hidePopOver }) => {
 
     try {
       const { data } = await axios.post(
-        "/api/auth/forgotpassword",
+        `${BACKEND_BASE_URL}/api/auth/forgotpassword`,
         { email },
         config
       );

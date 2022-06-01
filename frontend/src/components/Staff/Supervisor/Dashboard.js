@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Breadcrumb, Button, Popover } from "antd";
 import {
   LogoutOutlined,
@@ -17,6 +17,7 @@ import ResearchTopics from "./DashboardSubComponents/ResearchTopics";
 import EvaluateDocuments from "./DashboardSubComponents/EvaluateDocuments";
 import ChatWithGroups from "./DashboardSubComponents/ChatWithGroups";
 import PasswordResetRequest from "../../Register/PasswordResetRequest";
+import SingleChat from "./DashboardSubComponents/SingleChat";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -24,7 +25,7 @@ const SupervisorDashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const history = useNavigate();
 
-  const { username } = useParams();
+  const { username, groupName } = useParams();
 
   const date = new Date();
   const hrs = date.getHours();
@@ -174,12 +175,11 @@ const SupervisorDashboard = () => {
                   "username"
                 )}/evaluate-documents`
               ? ["1"]
-              : location.pathname ===
+              : (location.pathname ===
                   `/v1/${localStorage.getItem(
                     "type"
-                  )}-dashboard/${localStorage.getItem("username")}/chat` && [
-                  "2",
-                ]
+                  )}-dashboard/${localStorage.getItem("username")}/chat` ||
+                  groupName) && ["2"]
           }
         >
           <Menu.Item
@@ -253,9 +253,11 @@ const SupervisorDashboard = () => {
         >
           <h1 id="header" style={{ fontFamily: "serif", fontSize: "20px" }}>
             {location.pathname ===
-              `/v1/${localStorage.getItem(
-                "type"
-              )}-dashboard/${localStorage.getItem("username")}` && "Dashboard"}
+            `/v1/${localStorage.getItem(
+              "type"
+            )}-dashboard/${localStorage.getItem("username")}`
+              ? "Dashboard"
+              : groupName && `Chat With ${groupName}`}
           </h1>
         </Header>
         <Content style={{ margin: "0 16px" }}>
@@ -310,6 +312,7 @@ const SupervisorDashboard = () => {
             )}-dashboard/${localStorage.getItem("username")}/chat` && (
             <ChatWithGroups />
           )}
+          {groupName && <SingleChat />}
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Copyright © {date.getFullYear()} SLIIT

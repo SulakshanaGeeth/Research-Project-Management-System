@@ -76,6 +76,18 @@ exports.getTopic = async (req, res) => {
     .catch((error) => res.status(500).json({ success: false, error: error }));
 };
 
+exports.checkTopic = async (req, res) => {
+  const { m1, m2, m3, m4 } = req.params;
+
+  const result =
+    (await Topic.findOne({ userEmail: m1 })) ||
+    (await Topic.findOne({ userEmail: m2 })) ||
+    (await Topic.findOne({ userEmail: m3 })) ||
+    (await Topic.findOne({ userEmail: m4 }));
+
+  return res.json(result);
+};
+
 //controller for updating topic by id
 exports.updateTopic = async (req, res) => {
   //backend route for updating relavant data and passing back
