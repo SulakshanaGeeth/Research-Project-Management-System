@@ -205,6 +205,7 @@ const App = () => {
                     <Form onFinish={commentHandler}>
                       <Form.Item rules={[{ required: true }]} name="comment">
                         <TextArea
+                          allowClear
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
                           placeholder={

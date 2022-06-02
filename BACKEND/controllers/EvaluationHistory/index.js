@@ -1,7 +1,8 @@
 const EvaluationHistory = require("../../models/EvaluationHistory");
 
 exports.createHistory = async (req, res) => {
-  const { status, evaluatedBy, submittedBy, docName, date } = req.body;
+  const { status, evaluatedBy, submittedBy, docName, date, comment, rate } =
+    req.body;
 
   const newEvaluationHistory = new EvaluationHistory({
     status,
@@ -9,6 +10,8 @@ exports.createHistory = async (req, res) => {
     submittedBy,
     date,
     docName,
+    comment,
+    rate,
   });
 
   await newEvaluationHistory

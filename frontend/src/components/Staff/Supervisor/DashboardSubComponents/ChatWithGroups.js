@@ -149,6 +149,7 @@ const ChatWithGroups = () => {
       title: "Group Name",
       dataIndex: "group_name",
       key: "name",
+      defaultSortOrder: "descend",
       ...getColumnSearchProps("group_name"),
     },
     {
