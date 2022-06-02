@@ -111,7 +111,7 @@ const App = () => {
 
           {/* Admin Routes Goes Here */}
           <Route
-            path="/k/admin-dashboard/:username/view"
+            path="/v2/admin-dashboard/:username/view"
             element={
               <PrivateRoute>
                 <AdminDashboard />
@@ -119,7 +119,7 @@ const App = () => {
             }
           />
           <Route
-            path="/k/admin-dashboard/:username/edit/:id"
+            path="/v2/admin-dashboard/:username/edit/:id"
             element={
               <PrivateRoute>
                 <AdminDashboard />
@@ -127,7 +127,7 @@ const App = () => {
             }
           />
           <Route
-            path="/k/admin-dashboard/:username"
+            path="/v2/admin-dashboard/:username"
             element={
               <PrivateRoute>
                 <AdminDashboard />
@@ -136,7 +136,15 @@ const App = () => {
           />
 
           <Route
-            path="/k/admin-dashboard/:username/createmarkingscheme"
+            path="/v2/admin-dashboard/:username/createmarkingscheme"
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/v2/admin-dashboard/:username/documents"
             element={
               <PrivateRoute>
                 <AdminDashboard />
