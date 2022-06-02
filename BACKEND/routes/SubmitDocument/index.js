@@ -97,7 +97,7 @@ router.post("/", upload.array("uploaded_Image", 10), async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    let submitDoc = await submitDoc.find();
+    let submitDoc = await SubmitDoc.find();
     res.json(submitDoc);
   } catch (err) {
     console.log(err);

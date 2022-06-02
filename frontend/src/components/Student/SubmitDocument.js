@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./../../pages/components/Navbar";
 import React from "react";
-import { BACKEND_BASE_URL } from "./../components/constant/index";
+import { BACKEND_BASE_URL } from "./../constant/index";
 
-const AddUser = () => {
+const SubmitDocument = () => {
   const history = useNavigate();
   const [name, setName] = useState("");
   const [file, setFile] = useState([]);
@@ -142,4 +142,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default SubmitDocument;
