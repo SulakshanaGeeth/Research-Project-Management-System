@@ -7,6 +7,8 @@ const EvaluationHistory = new Schema({
   submittedBy: String,
   docName: String,
   date: Date,
+  comment: String,
+  rate: String,
 });
 
 const newEvaluationHistory = mongoose.model(
