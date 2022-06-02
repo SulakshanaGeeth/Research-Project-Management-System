@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import VideoPlayer from "react-video-js-player";
 import React from "react";
 import { useEffect, useState } from "react";
 import Navbar from "./../../pages/components/Navbar";
@@ -22,24 +20,17 @@ const ViewDocument = () => {
       <Navbar />
       <div className="row">
         {document?.map((document) => (
-          <div
-            className="col-md-3 card me-3 mt-2 p-0 mb-2 d-flex"
-            key={document._id}
-          >
-            <img src={document.avatar} alt="" width={"100%"} height={200} />
+          <div key={document._id}>
+            <div>
+              <h3 className="d-inline-block">Student Email :</h3>
+              <h4 className="d-inline-block mb-5">{document.email}</h4>
+            </div>
 
-            <VideoPlayer
-              src={document.video}
-              width="720"
-              height="420"
-              playBackRates={[0.5, 1, 1.25, 1.5, 2]}
-            />
-
-            <a href={document.pdf} download>
-              Click to download
-            </a>
-            <div className="p-2">
-              <h3>{document.name}</h3>
+            <div>
+              <h3 className="d-inline-block">Submitted word document : </h3>
+              <a href={document.doc} download>
+                Click to download
+              </a>
             </div>
           </div>
         ))}

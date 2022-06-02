@@ -34,59 +34,46 @@ const storage = multer.diskStorage({
 const upload = multer({
   fileFilter: (req, file, cb) => {
     if (
-      file.mimetype == "image/png" ||
-      file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg" ||
-      file.mimetype == "video/mp4" ||
-      file.mimetype == "application/pdf"
+      file.mimetype ==
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ) {
       cb(null, true);
     } else {
       cb(null, false);
-      return cb(
-        new Error("Only .png, .jpg, .jpeg .mp4 and .pdf format allowed!")
-      );
+      return cb(new Error("Only .docx format allowed!"));
     }
   },
   storage: storage,
 });
 
-router.post("/", upload.array("uploaded_Image", 10), async (req, res) => {
+router.post("/", upload.array("uploaded_Document", 10), async (req, res) => {
   try {
     console.log(req.files.length);
     console.log("Files", fileInArray);
-    let img;
-    let vid;
-    let pdff;
+
+    let docx;
 
     for (let i = 0; i < fileInArray.length; i++) {
       let fileext = fileInArray[i][0].split(".")[1];
+
       console.log(path.resolve(__dirname, "../../uploads"));
-      if (fileext == "jpg" || fileext == "png" || fileext == "jpeg")
-        img = await cloudinary.uploader.upload(
-          `${path.resolve(__dirname, "../../uploads")}/${fileInArray[i][0]}`
-        );
-      else if (fileext == "mp4")
-        vid = await cloudinary.uploader.upload(
+
+      if (fileext == "docx") {
+        console.log("fileInArray[i][0] :" + fileInArray[i][0]);
+        docx = await cloudinary.uploader.upload(
           `${path.resolve(__dirname, "../../uploads")}/${fileInArray[i][0]}`,
-          { resource_type: "video" }
+          { resource_type: "auto" }
         );
-      else if (fileext == "pdf")
-        pdff = await cloudinary.uploader.upload(
-          `${path.resolve(__dirname, "../../uploads")}/${fileInArray[i][0]}`,
-          { pages: true }
-        );
+        console.log("docx : " + docx);
+      }
     }
 
     let submitDoc = new SubmitDoc({
-      name: req.body.name,
-      avatar: img.secure_url,
-      video: vid.secure_url,
-      pdf: pdff.secure_url,
-      cloudinary_id_img: img.public_id,
-      cloudinary_id_vid: vid.public_id,
-      cloudinary_id_pdf: pdff.public_id,
+      email: req.body.email,
+      doc: docx.secure_url,
+      cloudinary_id_doc: docx.public_id,
     });
+    console.log("doc : " + submitDoc.doc);
 
     await submitDoc.save();
     res.json(submitDoc);

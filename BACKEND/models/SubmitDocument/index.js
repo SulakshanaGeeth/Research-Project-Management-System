@@ -1,24 +1,12 @@
 const mongoose = require("mongoose");
 const documentSchema = new mongoose.Schema({
-  name: {
+  email: {
     type: String,
   },
-  avatar: {
+  doc: {
     type: String,
   },
-  video: {
-    type: String,
-  },
-  pdf: {
-    type: String,
-  },
-  cloudinary_id_img: {
-    type: String,
-  },
-  cloudinary_id_vid: {
-    type: String,
-  },
-  cloudinary_id_pdf: {
+  cloudinary_id_doc: {
     type: String,
   },
 });
