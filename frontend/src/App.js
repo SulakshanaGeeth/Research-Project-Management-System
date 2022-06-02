@@ -19,6 +19,8 @@ import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
 import StudentGroup from "./components/Student/StudentGroup";
+import Home from "./pages/Home";
+import AddUser from "./pages/AddUser";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -55,6 +57,8 @@ const App = () => {
 
           {/* Student Routes Goes Here */}
           <Route path="/student-group" element={<StudentGroup />}></Route>
+          <Route path="/pdf" element={<Home />}></Route>
+          <Route path="/documents" element={<AddUser />}></Route>
 
           {/* Private Routes Goes Here */}
 
