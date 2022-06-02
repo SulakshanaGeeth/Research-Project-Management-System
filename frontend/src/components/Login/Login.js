@@ -88,7 +88,7 @@ const Login = () => {
         >
           <center>
             <img src={Logo} style={{ maxWidth: "100px" }} alt="Logo" />
-            <h1 id="header" style={{ fontFamily: "serif", fontSize: "50px" }}>
+            <h1 id="header" className="header">
               Sri Lanka Institute of Information Technology{" "}
             </h1>
 
