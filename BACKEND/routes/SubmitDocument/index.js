@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const cloudinary = require("../utils/cloudinary");
+const cloudinary = require("../../utils/cloudinary");
 const multer = require("multer");
 const uuid = require("uuid").v4;
 const path = require("path");
-const User = require("../models/user");
+const SubmitDoc = require("../../models/SubmitDocument");
 
 // create two arrays
 const files = [];
@@ -61,24 +61,24 @@ router.post("/", upload.array("uploaded_Image", 10), async (req, res) => {
 
     for (let i = 0; i < fileInArray.length; i++) {
       let fileext = fileInArray[i][0].split(".")[1];
-      console.log(path.resolve(__dirname, "../uploads"));
+      console.log(path.resolve(__dirname, "../../uploads"));
       if (fileext == "jpg" || fileext == "png" || fileext == "jpeg")
         img = await cloudinary.uploader.upload(
-          `${path.resolve(__dirname, "../uploads")}/${fileInArray[i][0]}`
+          `${path.resolve(__dirname, "../../uploads")}/${fileInArray[i][0]}`
         );
       else if (fileext == "mp4")
         vid = await cloudinary.uploader.upload(
-          `${path.resolve(__dirname, "../uploads")}/${fileInArray[i][0]}`,
+          `${path.resolve(__dirname, "../../uploads")}/${fileInArray[i][0]}`,
           { resource_type: "video" }
         );
       else if (fileext == "pdf")
         pdff = await cloudinary.uploader.upload(
-          `${path.resolve(__dirname, "../uploads")}/${fileInArray[i][0]}`,
+          `${path.resolve(__dirname, "../../uploads")}/${fileInArray[i][0]}`,
           { pages: true }
         );
     }
 
-    let user = new User({
+    let submitDoc = new SubmitDoc({
       name: req.body.name,
       avatar: img.secure_url,
       video: vid.secure_url,
@@ -88,8 +88,8 @@ router.post("/", upload.array("uploaded_Image", 10), async (req, res) => {
       cloudinary_id_pdf: pdff.public_id,
     });
 
-    await user.save();
-    res.json(user);
+    await submitDoc.save();
+    res.json(submitDoc);
   } catch (err) {
     console.log(err);
   }
@@ -97,8 +97,8 @@ router.post("/", upload.array("uploaded_Image", 10), async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    let user = await User.find();
-    res.json(user);
+    let submitDoc = await submitDoc.find();
+    res.json(submitDoc);
   } catch (err) {
     console.log(err);
   }

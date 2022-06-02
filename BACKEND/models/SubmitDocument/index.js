@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const userSchema = new mongoose.Schema({
+const documentSchema = new mongoose.Schema({
   name: {
     type: String,
   },
@@ -23,4 +23,4 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Document", userSchema);
+module.exports = mongoose.model("submit-document", documentSchema);
