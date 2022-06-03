@@ -18,6 +18,7 @@ import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
+import StudentDashboarrd from "./components/Student/Dashboard";
 import StudentGroup from "./components/Student/StudentGroup";
 import ViewDocument from "./components/Student/ViewDocument";
 import SubmitDocument from "./components/Student/SubmitDocument";
@@ -57,13 +58,59 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
 
           {/* Student Routes Goes Here */}
-          <Route path="/student-group" element={<StudentGroup />}></Route>
-          <Route path="/view-document" element={<ViewDocument />}></Route>
-          <Route path="/submit-document" element={<SubmitDocument />}></Route>
           <Route
+            path="/v3/:student-dashboard/:username"
+            element={
+              <PrivateRoute>
+                <StudentDashboarrd />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route
+            path="/student-dashboard"
+            element={<StudentDashboarrd />}
+          ></Route> */}
+          <Route
+            path="/v3/:student-dashboard/:username/student-group"
+            element={
+              <PrivateRoute>
+                <StudentGroup />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route path="/student-group" element={<StudentGroup />}></Route> */}
+          <Route
+            path="/v3/:student-dashboard/:username/view-document"
+            element={
+              <PrivateRoute>
+                <ViewDocument />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route path="/view-document" element={<ViewDocument />}></Route> */}
+
+          <Route
+            path="/v3/:student-dashboard/:username/submit-document"
+            element={
+              <PrivateRoute>
+                <SubmitDocument />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route path="/submit-document" element={<SubmitDocument />}></Route> */}
+
+          <Route
+            path="/v3/:student-dashboard/:username/request-supervisor"
+            element={
+              <PrivateRoute>
+                <RequestSupervisor />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route
             path="/request-supervisor"
             element={<RequestSupervisor />}
-          ></Route>
+          ></Route> */}
 
           {/* Private Routes Goes Here */}
 
