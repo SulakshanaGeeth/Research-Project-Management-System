@@ -42,8 +42,13 @@ let StudentGroup = () => {
         alert("New Student Group Added");
         // props.history.push('/dashbord/');
       })
-      .catch((err) => {
-        alert(err);
+      .catch((error) => {
+        if (error.response) {
+          alert(error.response.data.error);
+        }
+        // alert(e);
+        // res.status(e.response.status).json(e.response.data);
+        // let data = res.status(e.response.status).json(e.response.data);
       });
   };
 
