@@ -19,10 +19,10 @@ import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
 import StudentDashboarrd from "./components/Student/Dashboard";
-import StudentGroup from "./components/Student/StudentGroup";
-import ViewDocument from "./components/Student/ViewDocument";
-import SubmitDocument from "./components/Student/SubmitDocument";
-import RequestSupervisor from "./components/Student/RequestSupervisor";
+// import StudentGroup from "./components/Student/StudentGroup";
+// import ViewDocument from "./components/Student/ViewDocument";
+// import SubmitDocument from "./components/Student/SubmitDocument";
+// import RequestSupervisor from "./components/Student/RequestSupervisor";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -74,7 +74,7 @@ const App = () => {
             path="/v3/:student-dashboard/:username/student-group"
             element={
               <PrivateRoute>
-                <StudentGroup />
+                <StudentDashboarrd />
               </PrivateRoute>
             }
           />
@@ -83,7 +83,7 @@ const App = () => {
             path="/v3/:type/:username/view-document"
             element={
               <PrivateRoute>
-                <ViewDocument />
+                <StudentDashboarrd />
               </PrivateRoute>
             }
           />
@@ -93,7 +93,7 @@ const App = () => {
             path="/v3/:type/:username/submit-document"
             element={
               <PrivateRoute>
-                <SubmitDocument />
+                <StudentDashboarrd />
               </PrivateRoute>
             }
           />
@@ -103,7 +103,7 @@ const App = () => {
             path="/v3/:type/:username/request-supervisor"
             element={
               <PrivateRoute>
-                <RequestSupervisor />
+                <StudentDashboarrd />
               </PrivateRoute>
             }
           />

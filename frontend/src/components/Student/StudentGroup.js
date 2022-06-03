@@ -2,13 +2,13 @@ import React, { useState, Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "./../constant/index";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 // import { createHashHistory } from "history";
 // import { Redirect } from "react-router";
 
 let StudentGroup = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const name = localStorage.getItem("username");
 
   const [group_name, setgroup_name] = useState("");
@@ -63,16 +63,16 @@ let StudentGroup = () => {
 
   // const back = () => props.history.push("/");
 
-  function handleClick() {
-    navigate("/v3/student-dashboard/" + name);
-  }
+  // function handleClick() {
+  //   navigate("/v3/student-dashboard/" + name);
+  // }
 
   return (
     <Fragment>
       <div style={{ backgroundColor: "#e6e6e6" }}>
-        <Button onClick={() => handleClick()} variant="primary">
+        {/* <Button onClick={() => handleClick()} variant="primary">
           Back
-        </Button>
+        </Button> */}
 
         <h4 className="text-center ">Create Student Group</h4>
         <div
@@ -83,7 +83,7 @@ let StudentGroup = () => {
           }}
         >
           <Form
-            style={{ margin: "auto", width: "50%", marginTop: "5px" }}
+            style={{ margin: "auto", width: "50%", marginTop: "15px" }}
             onSubmit={sendData}
           >
             <Form.Group className="mb-3" controlId="groupName">
@@ -188,7 +188,7 @@ let StudentGroup = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ marginLeft: "170px" }}
+              style={{ marginLeft: "120px" }}
             >
               Submit
             </Button>

@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "./../constant/index";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const RequestSupervisor = () => {
   const [topicName, settopicName] = useState("");
@@ -20,8 +20,8 @@ const RequestSupervisor = () => {
   // console.log("Date " + date);
 
   const userEmail = localStorage.getItem("email");
-  const navigate = useNavigate();
-  const name = localStorage.getItem("username");
+  // const navigate = useNavigate();
+  // const name = localStorage.getItem("username");
 
   const sendData = (e) => {
     e.preventDefault();
@@ -59,16 +59,16 @@ const RequestSupervisor = () => {
     );
   };
 
-  function handleClick() {
-    navigate("/v3/student-dashboard/" + name);
-  }
+  // function handleClick() {
+  //   navigate("/v3/student-dashboard/" + name);
+  // }
 
   return (
     <Fragment>
       <div style={{ backgroundColor: "#e6e6e6" }}>
-        <Button onClick={() => handleClick()} variant="primary">
+        {/* <Button onClick={() => handleClick()} variant="primary">
           Back
-        </Button>
+        </Button> */}
         <h4 className="text-center ">Request Supervisor</h4>
         <div
           style={{
@@ -78,7 +78,7 @@ const RequestSupervisor = () => {
           }}
         >
           <Form
-            style={{ margin: "auto", width: "50%", marginTop: "5px" }}
+            style={{ margin: "auto", width: "50%", marginTop: "15px" }}
             onSubmit={sendData}
           >
             <Form.Group className="mb-3" controlId="topicName">
@@ -158,7 +158,7 @@ const RequestSupervisor = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ marginLeft: "170px", marginBottom: "60px" }}
+              style={{ marginLeft: "140px", marginBottom: "60px" }}
             >
               Submit
             </Button>

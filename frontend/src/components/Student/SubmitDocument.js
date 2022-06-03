@@ -1,7 +1,7 @@
+import React from "react";
+import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./../../pages/components/Navbar";
-import React from "react";
 import { BACKEND_BASE_URL } from "./../constant/index";
 
 const SubmitDocument = () => {
@@ -38,7 +38,6 @@ const SubmitDocument = () => {
 
   return (
     <div style={{ maxWidth: 500, margin: "auto" }}>
-      <Navbar />
       <form onSubmit={upload} encType="multipart/form-data">
         Upload doc
         <div className="form-group">
