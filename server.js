@@ -35,4 +35,6 @@ app.use("/research-topic", require("./BACKEND/routes/ResearchTopic"));
 app.use("/student-group", require("./BACKEND/routes/StudentGroups"));
 app.use("/mark-scheme", require("./BACKEND/routes/MarkScheme"));
 app.use("/chat", require("./BACKEND/routes/Chat"));
+app.use("/document-upload", require("./BACKEND/routes/SubmitDocument"));
 app.use("/evaluation-history", require("./BACKEND/routes/EvaluationHistory"));
+

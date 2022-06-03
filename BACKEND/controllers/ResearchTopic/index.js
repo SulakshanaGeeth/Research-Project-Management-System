@@ -34,10 +34,6 @@ exports.register = async (req, res) => {
   const isAvailable =
     (await Topic.findOne({
       //check the availability of saving data
-      topicId: topicId,
-    })) ||
-    (await Topic.findOne({
-      //check the availability of saving data
 
       topicName: topicName,
     })) ||

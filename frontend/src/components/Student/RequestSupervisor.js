@@ -1,21 +1,13 @@
 import React, { useState, Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
-import { BACKEND_BASE_URL } from "./../constant/index";
 
-let StudentGroup = () => {
-  // var std_email = localStorage.getItem("studentemail");
-
+const RequestSupervisor = () => {
   const [group_name, setgroup_name] = useState("");
   const [member1_Email, setmember1_Email] = useState("");
   const [member2_Email, setmember2_Email] = useState("");
   const [member3_Email, setmember3_Email] = useState("");
   const [member4_Email, setmember4_Email] = useState("");
-
-  const [member1_Name, setmember1_Name] = useState("");
-  const [member2_Name, setmember2_Name] = useState("");
-  const [member3_Name, setmember3_Name] = useState("");
-  const [member4_Name, setmember4_Name] = useState("");
 
   const sendData = (e) => {
     e.preventDefault();
@@ -40,20 +32,6 @@ let StudentGroup = () => {
       .catch((err) => {
         alert(err);
       });
-  };
-
-  let demoButton = () => {
-    console.log("Button Clicked");
-    setgroup_name("Group6");
-    setmember1_Email("Geeth@gmail.com");
-    setmember2_Email("Shanaka@gmail.com");
-    setmember3_Email("Sahan@gmail.com");
-    setmember4_Email("Tamali@gmail.com");
-
-    setmember1_Name("Geeth");
-    setmember2_Name("Shanaka");
-    setmember3_Name("Sahan");
-    setmember4_Name("Thamali");
   };
 
   return (
@@ -180,4 +158,4 @@ let StudentGroup = () => {
   );
 };
 
-export default StudentGroup;
+export default RequestSupervisor;
