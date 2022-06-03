@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Breadcrumb, Button } from "antd";
 import {
   PullRequestOutlined,
   AuditOutlined,
   LogoutOutlined,
   HomeOutlined,
+  FilePdfOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
@@ -12,6 +13,7 @@ import CreateItem from "./AdminDashboardSubComponents/CreateMarkScheme";
 import EditUsers from "./AdminDashboardSubComponents/EditUsers";
 import ViewUsers from "./AdminDashboardSubComponents/ViewUsers";
 import DashboardLogo from "./assets/Alogo.png";
+import UploadDocument from "./AdminDashboardSubComponents/UploadDocument";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -94,13 +96,21 @@ const AdminDashboard = () => {
           defaultSelectedKeys={["0"]}
           selectedKeys={
             pathname ===
-              `/k/admin-dashboard/${localStorage.getItem("username")}/view` ||
+              `/v2/admin-dashboard/${localStorage.getItem("username")}/view` ||
             pathname ===
-              `/k/admin-dashboard/${localStorage.getItem(
+              `/v2/admin-dashboard/${localStorage.getItem(
                 "username"
               )}/edit/${id}`
               ? ["1"]
-              : ["0"]
+              : pathname ===
+                `/v2/admin-dashboard/${localStorage.getItem(
+                  "username"
+                )}/createmarkingscheme`
+              ? ["0"]
+              : pathname ===
+                  `/v2/admin-dashboard/${localStorage.getItem(
+                    "username"
+                  )}/documents` && ["2"]
           }
         >
           <Menu.Item
@@ -108,7 +118,7 @@ const AdminDashboard = () => {
             icon={<PullRequestOutlined />}
             onClick={() => {
               history(
-                `/k/admin-dashboard/${localStorage.getItem(
+                `/v2/admin-dashboard/${localStorage.getItem(
                   "username"
                 )}/createmarkingscheme`
               );
@@ -121,11 +131,24 @@ const AdminDashboard = () => {
             icon={<AuditOutlined />}
             onClick={() => {
               history(
-                `/k/admin-dashboard/${localStorage.getItem("username")}/view`
+                `/v2/admin-dashboard/${localStorage.getItem("username")}/view`
               );
             }}
           >
             View Users
+          </Menu.Item>
+          <Menu.Item
+            key="2"
+            icon={<FilePdfOutlined />}
+            onClick={() => {
+              history(
+                `/v2/admin-dashboard/${localStorage.getItem(
+                  "username"
+                )}/documents`
+              );
+            }}
+          >
+            Upload Document
           </Menu.Item>
         </Menu>
 
@@ -162,21 +185,25 @@ const AdminDashboard = () => {
             <Breadcrumb.Item>{username}</Breadcrumb.Item>
           </Breadcrumb>
           {(pathname ===
-            `/k/admin-dashboard/${localStorage.getItem(
+            `/v2/admin-dashboard/${localStorage.getItem(
               "username"
             )}/createmarkingscheme` ||
             pathname ===
-              `/admin-dashboard/${localStorage.getItem("username")}`) && (
+              `/v2/admin-dashboard/${localStorage.getItem("username")}`) && (
             <CreateItem />
           )}
           {pathname ===
-            `/k/admin-dashboard/${localStorage.getItem("username")}/view` && (
+            `/v2/admin-dashboard/${localStorage.getItem("username")}/view` && (
             <ViewUsers />
           )}
           {pathname ===
-            `/k/admin-dashboard/${localStorage.getItem(
+            `/v2/admin-dashboard/${localStorage.getItem(
               "username"
             )}/edit/${id}` && <EditUsers />}
+          {pathname ===
+            `/v2/admin-dashboard/${localStorage.getItem(
+              "username"
+            )}/documents` && <UploadDocument />}
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Copyright © {date.getFullYear()} SLIIT

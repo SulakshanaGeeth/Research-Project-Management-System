@@ -251,7 +251,10 @@ const SupervisorDashboard = () => {
           className="site-layout-background"
           style={{ padding: 0, textAlign: "center" }}
         >
-          <h1 id="header" style={{ fontFamily: "serif", fontSize: "20px" }}>
+          <h1
+            id="header"
+            style={{ fontFamily: "serif", fontSize: "20px", marginTop: "20px" }}
+          >
             {location.pathname ===
             `/v1/${localStorage.getItem(
               "type"

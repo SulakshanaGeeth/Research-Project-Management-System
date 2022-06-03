@@ -56,7 +56,7 @@ const Login = () => {
       setTimeout(() => {
         // set a 5seconds timeout for authentication
 
-        if (data.type === "Admin") history(`/k/admin-dashboard`);
+        if (data.type === "Admin") history(`/v2/admin-dashboard/${username}`);
         else if (data.type === "Staff") history(`/staff-register`);
         else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
           history(`/v1/${data.type}-dashboard/${username?.[0]}`);
@@ -88,7 +88,7 @@ const Login = () => {
         >
           <center>
             <img src={Logo} style={{ maxWidth: "100px" }} alt="Logo" />
-            <h1 id="header" style={{ fontFamily: "serif", fontSize: "50px" }}>
+            <h1 id="header" className="header">
               Sri Lanka Institute of Information Technology{" "}
             </h1>
 

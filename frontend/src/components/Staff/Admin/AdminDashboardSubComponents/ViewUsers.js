@@ -36,7 +36,7 @@ const ViewUsers = () => {
 
   const deleteHandler = async (id) => {
     try {
-      await axios.delete(`/api/auth/delete/${id}`);
+      await axios.delete(`${BACKEND_BASE_URL}/api/auth/delete/${id}`);
       notification.info({
         message: `Notification`,
         description: "Successfully Deleted User 😘",
