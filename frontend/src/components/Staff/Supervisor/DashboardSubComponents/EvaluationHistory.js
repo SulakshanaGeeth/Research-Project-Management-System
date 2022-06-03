@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "../../../constant";
+import moment from "moment";
 const columns = [
   {
     title: "Documant Name",
@@ -25,6 +26,9 @@ const columns = [
     title: "Date Evaluated",
     key: "4",
     dataIndex: "date",
+    render: (record) => (
+      <span>{moment(record?.date).format("DD MMMM, YYYY")}</span>
+    ),
   },
   {
     title: "Comment",
@@ -35,6 +39,7 @@ const columns = [
     title: "Rating",
     key: "6",
     dataIndex: "rate",
+    render: (_, record) => <span>{record?.rate}/10</span>,
   },
   {
     title: "Status",

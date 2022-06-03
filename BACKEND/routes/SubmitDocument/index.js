@@ -72,6 +72,7 @@ router.post("/", upload.array("uploaded_Document", 10), async (req, res) => {
       email: req.body.email,
       doc: docx.secure_url,
       cloudinary_id_doc: docx.public_id,
+      evaluation: "NOT EVALUATED",
     });
     console.log("doc : " + submitDoc.doc);
 
@@ -89,6 +90,14 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+router.put("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  const { evaluation } = req.body;
+  await SubmitDoc.findByIdAndUpdate(id, { evaluation })
+    .then(() => res.status(200).json({ success: true, message: "Evaluated" }))
+    .catch((err) => res.status(500).json({ success: false, message: err }));
 });
 
 module.exports = router;
