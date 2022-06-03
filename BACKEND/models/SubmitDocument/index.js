@@ -9,6 +9,7 @@ const documentSchema = new mongoose.Schema({
   cloudinary_id_doc: {
     type: String,
   },
+  evaluation: String,
 });
 
 module.exports = mongoose.model("submit-document", documentSchema);
