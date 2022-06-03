@@ -3,35 +3,57 @@ import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 
 const RequestSupervisor = () => {
-  const [group_name, setgroup_name] = useState("");
-  const [member1_Email, setmember1_Email] = useState("");
-  const [member2_Email, setmember2_Email] = useState("");
-  const [member3_Email, setmember3_Email] = useState("");
-  const [member4_Email, setmember4_Email] = useState("");
+  const [topicName, settopicName] = useState("");
+  const [userEmail, setuserEmail] = useState("");
+  const [topicCat, settopicCat] = useState("");
+  const [faculty, setfaculty] = useState("");
+  const [members, setmembers] = useState("");
+  const [date, setdate] = useState("");
+  const [supervisorName, setsupervisorName] = useState("");
+  const [attachment, setattachment] = useState("");
+
+  // const current = new Date();
+  // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+
+  setdate(Date().toLocaleString());
+  console.log("set date: " + date);
+
+  const email = localStorage.getItem("email");
 
   const sendData = (e) => {
     e.preventDefault();
 
-    const newStudentGroup = {
-      group_name,
-      member1_Name,
-      member2_Name,
-      member3_Name,
-      member4_Name,
-      member1_Email,
-      member2_Email,
-      member3_Email,
-      member4_Email,
+    const newRequestSupervisor = {
+      topicName,
+      userEmail,
+      topicCat,
+      faculty,
+      date,
+      supervisorName,
+      attachment,
     };
     axios
-      .post(`${BACKEND_BASE_URL}/student-group/create`, newStudentGroup)
+      .post(`${BACKEND_BASE_URL}/research-topic/register`, newRequestSupervisor)
       .then(() => {
-        alert("New Student Group Added");
+        alert("Request has been Send");
         // props.history.push('/dashbord/');
       })
       .catch((err) => {
         alert(err);
       });
+  };
+
+  const demoButton = () => {
+    console.log("Button Clicked");
+    settopicName("Group6");
+    setuserEmail("Geeth@gmail.com");
+    settopicCat("networking");
+    setfaculty("IT");
+    setmembers(4);
+    setsupervisorName("Mahinda Kahandagama");
+    setattachment(
+      "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwio8cXvitruAhVObn0KHSeuCgIQPAgI"
+    );
   };
 
   return (
