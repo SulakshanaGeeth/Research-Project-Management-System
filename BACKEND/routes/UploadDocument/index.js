@@ -48,7 +48,7 @@ const upload = multer({
 
 router.post("/upload", upload.array("uploaded_Document", 10), async (req, res) => {
   try {
-    //console.log(req.files.length);
+    console.log(req.files.length);
     console.log("Files", fileInArray);
 
     let docx;
@@ -70,8 +70,8 @@ router.post("/upload", upload.array("uploaded_Document", 10), async (req, res) =
 
     let uploadDocument = new UploadDocument({
       email: req.body.email,
-      doc: req.body.doc,
-      cloudinaryID: req.body.cloudinaryID
+      doc: docx.secure_url,
+      cloudinaryID: docx.public_id,
     });
     console.log("doc : " + uploadDocument.doc);
 
