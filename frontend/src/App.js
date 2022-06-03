@@ -80,7 +80,7 @@ const App = () => {
           />
           {/* <Route path="/student-group" element={<StudentGroup />}></Route> */}
           <Route
-            path="/v3/:student-dashboard/:username/view-document"
+            path="/v3/:type/:username/view-document"
             element={
               <PrivateRoute>
                 <ViewDocument />
@@ -90,7 +90,7 @@ const App = () => {
           {/* <Route path="/view-document" element={<ViewDocument />}></Route> */}
 
           <Route
-            path="/v3/:student-dashboard/:username/submit-document"
+            path="/v3/:type/:username/submit-document"
             element={
               <PrivateRoute>
                 <SubmitDocument />
@@ -100,7 +100,7 @@ const App = () => {
           {/* <Route path="/submit-document" element={<SubmitDocument />}></Route> */}
 
           <Route
-            path="/v3/:student-dashboard/:username/request-supervisor"
+            path="/v3/:type/:username/request-supervisor"
             element={
               <PrivateRoute>
                 <RequestSupervisor />
