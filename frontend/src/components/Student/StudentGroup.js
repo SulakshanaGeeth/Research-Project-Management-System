@@ -188,7 +188,7 @@ let StudentGroup = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ marginLeft: "150px" }}
+              style={{ marginLeft: "170px" }}
             >
               Submit
             </Button>
