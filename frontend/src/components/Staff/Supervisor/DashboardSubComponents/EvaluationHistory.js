@@ -21,12 +21,19 @@ const columns = [
     title: "Evaluated By",
     dataIndex: "evaluatedBy",
     key: "3",
+    render: (_, record) => (
+      <span>
+        {localStorage.getItem("email") === record?.evaluatedBy
+          ? "You"
+          : record?.evaluatedBy}
+      </span>
+    ),
   },
   {
     title: "Date Evaluated",
     key: "4",
     dataIndex: "date",
-    render: (record) => (
+    render: (_, record) => (
       <span>{moment(record?.date).format("DD MMMM, YYYY")}</span>
     ),
   },
