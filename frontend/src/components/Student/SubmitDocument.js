@@ -28,6 +28,7 @@ const SubmitDocument = () => {
       });
       if (res.ok) {
         setDoc(null);
+        alert("Document submited successfully");
         history.replace("/home");
       }
     } catch (error) {

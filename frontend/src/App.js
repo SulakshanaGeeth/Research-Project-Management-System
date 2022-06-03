@@ -21,6 +21,7 @@ import AdminDashboard from "./components/Staff/Admin/Dashboard";
 import StudentGroup from "./components/Student/StudentGroup";
 import ViewDocument from "./components/Student/ViewDocument";
 import SubmitDocument from "./components/Student/SubmitDocument";
+import RequestSupervisor from "./components/Student/RequestSupervisor";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -59,6 +60,10 @@ const App = () => {
           <Route path="/student-group" element={<StudentGroup />}></Route>
           <Route path="/view-document" element={<ViewDocument />}></Route>
           <Route path="/submit-document" element={<SubmitDocument />}></Route>
+          <Route
+            path="/request-supervisor"
+            element={<RequestSupervisor />}
+          ></Route>
 
           {/* Private Routes Goes Here */}
 
