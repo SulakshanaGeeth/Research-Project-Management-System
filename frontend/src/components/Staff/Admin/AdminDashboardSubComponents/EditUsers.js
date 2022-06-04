@@ -39,7 +39,7 @@ const EditUsers = () => {
   const [loader, setLoader] = useState(false);
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState(localStorage.getItem("type"));
 
   const [loading, setLoading] = useState(false); //additional
   const [error, setError] = useState(false);
@@ -72,17 +72,12 @@ const EditUsers = () => {
       },
     };
 
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("email", email);
-    formData.append("type", type);
-
     try {
       await axios.put(
         //use axios API
         `${BACKEND_BASE_URL}/api/auth/update/${id}`,
 
-        formData,
+        { username, email, type },
 
         config
       );
