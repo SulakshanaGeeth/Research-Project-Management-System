@@ -21,10 +21,7 @@ import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
 import StudentDashboarrd from "./components/Student/Dashboard";
-// import StudentGroup from "./components/Student/StudentGroup";
-// import ViewDocument from "./components/Student/ViewDocument";
-// import SubmitDocument from "./components/Student/SubmitDocument";
-// import RequestSupervisor from "./components/Student/RequestSupervisor";
+import SubmitPresentation from "./components/Student/SubmitPresentation";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -54,6 +51,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/submit-presentation" element={<SubmitPresentation />} />
           <Route
             path="/passwordreset/:resetToken"
             element={<ResetPassword />}
