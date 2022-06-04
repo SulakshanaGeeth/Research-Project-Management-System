@@ -60,7 +60,8 @@ const Login = () => {
         else if (data.type === "Staff") history(`/staff-register`);
         else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
           history(`/v1/${data.type}-dashboard/${username?.[0]}`);
-        else if (data.type === "panel") history(`/panel-dashboard`);
+        else if (data.type === "panel")
+          history(`/v4/:panel-dashboard/${username}`);
         else history(`/v3/${data.type}-dashboard/${username?.[0]}`);
 
         setLoading(false);
