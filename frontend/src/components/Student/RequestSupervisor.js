@@ -1,24 +1,20 @@
 import React, { useState, Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { BACKEND_BASE_URL } from "./../constant/index";
+import { toast } from "react-toastify";
 
 const RequestSupervisor = () => {
   const [topicName, settopicName] = useState("");
-  const [userEmail, setuserEmail] = useState("");
   const [topicCat, settopicCat] = useState("");
   const [faculty, setfaculty] = useState("");
   const [members, setmembers] = useState("");
-  const [date, setdate] = useState("");
   const [supervisorName, setsupervisorName] = useState("");
   const [attachment, setattachment] = useState("");
 
-  // const current = new Date();
-  // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+  const date = Date().toLocaleString();
 
-  setdate(Date().toLocaleString());
-  console.log("set date: " + date);
-
-  const email = localStorage.getItem("email");
+  const userEmail = localStorage.getItem("email");
 
   const sendData = (e) => {
     e.preventDefault();
@@ -29,24 +25,25 @@ const RequestSupervisor = () => {
       topicCat,
       faculty,
       date,
+      members,
       supervisorName,
       attachment,
     };
     axios
       .post(`${BACKEND_BASE_URL}/research-topic/register`, newRequestSupervisor)
       .then(() => {
-        alert("Request has been Send");
-        // props.history.push('/dashbord/');
+        toast.success("Request has been Send");
       })
-      .catch((err) => {
-        alert(err);
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data.error);
+        }
       });
   };
 
   const demoButton = () => {
     console.log("Button Clicked");
     settopicName("Group6");
-    setuserEmail("Geeth@gmail.com");
     settopicCat("networking");
     setfaculty("IT");
     setmembers(4);
@@ -58,124 +55,118 @@ const RequestSupervisor = () => {
 
   return (
     <Fragment>
-      <Form
-        style={{ margin: "auto", width: "50%", marginTop: "50px" }}
-        onSubmit={sendData}
-      >
-        <Form.Group className="mb-3" controlId="groupName">
-          <Form.Label>Group Name</Form.Label>
-          <Form.Control
-            type="text"
-            value={group_name}
-            placeholder="Enter Group Name"
-            onChange={(e) => {
-              setgroup_name(e.target.value);
-            }}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="studentEmail_1">
-          <Form.Label>Email address of Student 01</Form.Label>
-          <Form.Control
-            type="email"
-            value={member1_Email}
-            placeholder="Enter email address of the student 1"
-            onChange={(e) => {
-              setmember1_Email(e.target.value);
-            }}
-          />
-        </Form.Group>
+      <div style={{ backgroundColor: "#e6e6e6", minHeight: "640px" }}>
+        <h4 className="text-center ">Request Supervisor</h4>
+        <div
+          style={{
+            backgroundColor: "#f2f2f2",
+            maxWidth: "60%",
+            margin: "auto",
+            borderRadius: "20px",
+          }}
+        >
+          <Form
+            style={{ margin: "auto", width: "50%", marginTop: "15px" }}
+            onSubmit={sendData}
+          >
+            <Form.Group className="mb-3" controlId="topicName">
+              <Form.Label>Topic name of the research</Form.Label>
+              <Form.Control
+                type="text"
+                value={topicName}
+                placeholder="Enter topic name of the research"
+                onChange={(e) => {
+                  settopicName(e.target.value);
+                }}
+              />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="studentName_1">
-          <Form.Label>Name of Student 01 </Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter name of the student 1"
-            value={member1_Name}
-            onChange={(e) => {
-              setmember1_Name(e.target.value);
-            }}
-          />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="topicCat">
+              <Form.Label>Topic category of the research : </Form.Label>
+              <Form.Control
+                type="text"
+                value={topicCat}
+                placeholder="Enter Topic category of the research"
+                required
+                onChange={(e) => {
+                  settopicCat(e.target.value);
+                }}
+              />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="studentEmail_2">
-          <Form.Label>Email address of Student 02</Form.Label>
-          <Form.Control
-            type="email"
-            value={member2_Email}
-            placeholder="Enter email address of the student 2"
-            onChange={(e) => {
-              setmember2_Email(e.target.value);
-            }}
-          />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="faculty">
+              <Form.Label>Faculty :</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Faculty"
+                value={faculty}
+                required
+                onChange={(e) => {
+                  setfaculty(e.target.value);
+                }}
+              />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="studentName_2">
-          <Form.Label>Name of Student 02 </Form.Label>
-          <Form.Control
-            type="text"
-            value={member2_Name}
-            placeholder="Enter name of the student 2"
-            onChange={(e) => {
-              setmember2_Name(e.target.value);
-            }}
-          />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="members">
+              <Form.Label>
+                Number of Students in the research group :
+              </Form.Label>
+              <Form.Control
+                type="number"
+                value={members}
+                placeholder="Enter Number of Students in the research group"
+                required
+                onChange={(e) => {
+                  setmembers(e.target.value);
+                }}
+              />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="studentEmail_3">
-          <Form.Label>Email address of Student 03</Form.Label>
-          <Form.Control
-            type="email"
-            value={member3_Email}
-            placeholder="Enter email address of the student 3"
-            onChange={(e) => {
-              setmember3_Email(e.target.value);
-            }}
-          />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="supervisorName">
+              <Form.Label>Enter name of the supervisor : </Form.Label>
+              <Form.Control
+                type="text"
+                value={supervisorName}
+                placeholder="Enter name of the supervisor"
+                required
+                onChange={(e) => {
+                  setsupervisorName(e.target.value);
+                }}
+              />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="studentName_3">
-          <Form.Label>Name of Student 03</Form.Label>
-          <Form.Control
-            type="text"
-            value={member3_Name}
-            placeholder="Enter name of the student 3"
-            onChange={(e) => {
-              setmember3_Name(e.target.value);
-            }}
-          />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="attachment">
+              <Form.Label>Links of the attachments : </Form.Label>
+              <Form.Control
+                type="text"
+                value={attachment}
+                placeholder="Enter links of the attachments"
+                required
+                onChange={(e) => {
+                  setattachment(e.target.value);
+                }}
+              />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="studentEmail_4">
-          <Form.Label>Email address of Student 04</Form.Label>
-          <Form.Control
-            type="email"
-            value={member4_Email}
-            placeholder="Enter email address of the student 4"
-            onChange={(e) => {
-              setmember4_Email(e.target.value);
-            }}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="studentName_4">
-          <Form.Label>Name of Student 04 </Form.Label>
-          <Form.Control
-            type="text"
-            value={member4_Name}
-            placeholder="Enter name of the student 4"
-            onChange={(e) => {
-              setmember4_Name(e.target.value);
-            }}
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Submit
+            <Button
+              variant="primary"
+              type="submit"
+              style={{ marginLeft: "140px", marginBottom: "20px" }}
+            >
+              Submit
+            </Button>
+          </Form>
+        </div>
+        <Button
+          style={{ float: "right", marginRight: "60px" }}
+          variant="warning"
+          size="sm"
+          type="button"
+          onClick={demoButton}
+        >
+          Demo Button
         </Button>
-      </Form>
-      <Button variant="primary" type="button" onClick={demoButton}>
-        Demo Button
-      </Button>
+      </div>
     </Fragment>
   );
 };

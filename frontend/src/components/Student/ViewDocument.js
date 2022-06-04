@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Navbar from "./../../pages/components/Navbar";
 import { BACKEND_BASE_URL } from "./../constant/index";
 
 const ViewDocument = () => {

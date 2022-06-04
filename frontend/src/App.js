@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Login Register Reset Imports Goes Here
 
@@ -18,9 +20,11 @@ import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
-import StudentGroup from "./components/Student/StudentGroup";
-import ViewDocument from "./components/Student/ViewDocument";
-import SubmitDocument from "./components/Student/SubmitDocument";
+import StudentDashboarrd from "./components/Student/Dashboard";
+// import StudentGroup from "./components/Student/StudentGroup";
+// import ViewDocument from "./components/Student/ViewDocument";
+// import SubmitDocument from "./components/Student/SubmitDocument";
+// import RequestSupervisor from "./components/Student/RequestSupervisor";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -45,6 +49,7 @@ const App = () => {
   };
   return (
     <>
+      <ToastContainer />
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -56,9 +61,59 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
 
           {/* Student Routes Goes Here */}
-          <Route path="/student-group" element={<StudentGroup />}></Route>
-          <Route path="/view-document" element={<ViewDocument />}></Route>
-          <Route path="/submit-document" element={<SubmitDocument />}></Route>
+          <Route
+            path="/v3/:student-dashboard/:username"
+            element={
+              <PrivateRoute>
+                <StudentDashboarrd />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route
+            path="/student-dashboard"
+            element={<StudentDashboarrd />}
+          ></Route> */}
+          <Route
+            path="/v3/:student-dashboard/:username/student-group"
+            element={
+              <PrivateRoute>
+                <StudentDashboarrd />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route path="/student-group" element={<StudentGroup />}></Route> */}
+          <Route
+            path="/v3/:type/:username/view-document"
+            element={
+              <PrivateRoute>
+                <StudentDashboarrd />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route path="/view-document" element={<ViewDocument />}></Route> */}
+
+          <Route
+            path="/v3/:type/:username/submit-document"
+            element={
+              <PrivateRoute>
+                <StudentDashboarrd />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route path="/submit-document" element={<SubmitDocument />}></Route> */}
+
+          <Route
+            path="/v3/:type/:username/request-supervisor"
+            element={
+              <PrivateRoute>
+                <StudentDashboarrd />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route
+            path="/request-supervisor"
+            element={<RequestSupervisor />}
+          ></Route> */}
 
           {/* Private Routes Goes Here */}
 
