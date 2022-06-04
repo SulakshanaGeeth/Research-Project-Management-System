@@ -206,6 +206,7 @@ const Actions = () => {
 provided Mark Schemes. Type any suggestions or what need to be improved also`}
                         onChange={(e) => setComment(e.target.value)}
                         value={comment}
+                        id="action"
                       />
                     </Form.Item>
                     <Form.Item>
