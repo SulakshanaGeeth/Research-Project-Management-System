@@ -115,17 +115,20 @@ const Actions = () => {
             <Spin size="large" style={{ marginTop: "200px" }} />
           </center>
         ) : data.length === 0 ? (
-          <Empty
-            description={
-              <>
-                <span>No Evaluations</span>
-                <br />
-                <span style={{ color: "red" }}>
-                  THERE ARE NO DOCUMENTS SUBMITTED
-                </span>
-              </>
-            }
-          />
+          <center>
+            {" "}
+            <Empty
+              description={
+                <>
+                  <span>No Evaluations</span>
+                  <br />
+                  <span style={{ color: "red" }}>
+                    THERE ARE NO DOCUMENTS SUBMITTED
+                  </span>
+                </>
+              }
+            />
+          </center>
         ) : (
           data.map((value, index) => (
             <Panel
