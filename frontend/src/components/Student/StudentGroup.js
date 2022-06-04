@@ -58,7 +58,7 @@ let StudentGroup = () => {
 
   return (
     <Fragment>
-      <div style={{ backgroundColor: "#e6e6e6", minHeight: "880px" }}>
+      <div style={{ backgroundColor: "#e6e6e6", minHeight: "890px" }}>
         <h4 className="text-center ">Create Student Group</h4>
         <div
           style={{
