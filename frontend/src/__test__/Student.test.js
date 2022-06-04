@@ -1,8 +1,9 @@
 import React from "react";
-import StudentGroup from "./../Student/StudentGroup";
-import RequestSupervisor from "./../Student/RequestSupervisor";
-import SubmitDocument from "./../Student/SubmitDocument";
-import SubmitPresentation from "./../Student/SubmitPresentation";
+import ReactDOM from "react-dom";
+import StudentGroup from "./../components/Student/StudentGroup";
+import RequestSupervisor from "./../components/Student/RequestSupervisor";
+import SubmitDocument from "./../components/Student/SubmitDocument";
+import SubmitPresentation from "./../components/Student/SubmitPresentation";
 
 import "@testing-library/jest-dom";
 
