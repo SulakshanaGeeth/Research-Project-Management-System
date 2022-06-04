@@ -80,7 +80,7 @@ const Actions = () => {
       })
       .then(() =>
         notification.info({
-          message: `Succussfully Evaluated.`,
+          message: `Successfully Evaluated.`,
           placement: "top",
         })
       )
