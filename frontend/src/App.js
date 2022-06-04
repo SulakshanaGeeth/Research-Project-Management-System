@@ -20,11 +20,13 @@ import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
-import StudentDashboarrd from "./components/Student/Dashboard";
-// import StudentGroup from "./components/Student/StudentGroup";
-// import ViewDocument from "./components/Student/ViewDocument";
-// import SubmitDocument from "./components/Student/SubmitDocument";
-// import RequestSupervisor from "./components/Student/RequestSupervisor";
+
+import StudentDashboard from "./components/Student/Dashboard";
+
+//Panal member Imports
+import EvaluationPrentation from "./components/Staff/PanelMember/EvaluatePresentation";
+import GiveFeedBack from "./components/Staff/PanelMember/giveFeedBack";
+import PanalDashboard from "./components/Staff/PanelMember/Dashboard";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -61,59 +63,87 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
 
           {/* Student Routes Goes Here */}
+
           <Route
             path="/v3/:student-dashboard/:username"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
-          {/* <Route
-            path="/student-dashboard"
-            element={<StudentDashboarrd />}
-          ></Route> */}
+
           <Route
             path="/v3/:student-dashboard/:username/student-group"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
-          {/* <Route path="/student-group" element={<StudentGroup />}></Route> */}
+
           <Route
             path="/v3/:type/:username/view-document"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
-          {/* <Route path="/view-document" element={<ViewDocument />}></Route> */}
 
           <Route
             path="/v3/:type/:username/submit-document"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
-          {/* <Route path="/submit-document" element={<SubmitDocument />}></Route> */}
 
           <Route
             path="/v3/:type/:username/request-supervisor"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
-          {/* <Route
-            path="/request-supervisor"
-            element={<RequestSupervisor />}
-          ></Route> */}
+
+          <Route
+            path="/v3/:type/:username/submit-presentation"
+            element={
+              <PrivateRoute>
+                <StudentDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/v4/:panel-dashboard/:username"
+            element={
+              <PrivateRoute>
+                <PanalDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/v4/:type/:username/evaluate-presentation"
+            element={
+              <PrivateRoute>
+                <PanalDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/v4/:type/:username/evaluate-presentation/feedback/:id"
+            element={
+              <PrivateRoute>
+                <PanalDashboard />
+              </PrivateRoute>
+            }
+          />
 
           {/* Private Routes Goes Here */}
 

@@ -8,8 +8,12 @@ import { toast } from "react-toastify";
 const SubmitDocument = () => {
   const history = useNavigate();
   const email = localStorage.getItem("email");
+  // const topic = "topic01";
+  // const category = "category01";
 
   const [doc, setDoc] = useState([]);
+  const [topic, settopic] = useState([]);
+  const [category, setcategory] = useState([]);
 
   const upload = async (e) => {
     try {
@@ -18,21 +22,26 @@ const SubmitDocument = () => {
       const data = new FormData();
 
       data.append("email", email);
+      data.append("topic", topic);
+      data.append("category", category);
 
       for (var x = 0; x < doc.length; x++) {
         data.append("uploaded_Document", doc[x]);
       }
 
-      const res = await fetch(`${BACKEND_BASE_URL}/document-upload`, {
-        method: "POST",
-        body: data,
-      });
+      const res = await fetch(
+        `${BACKEND_BASE_URL}/submit-presentation/upload`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
       if (res.ok) {
         setDoc(null);
         toast.success("Document submited successfully");
       }
       if (!res.ok) {
-        toast.error("Only .docx format allowed!");
+        toast.error("Only .pptx format allowed!");
       }
     } catch (error) {
       console.log(error);
@@ -54,7 +63,29 @@ const SubmitDocument = () => {
         }}
       >
         <form onSubmit={upload} encType="multipart/form-data">
-          <h5 className="text-center ">Upload Document</h5>
+          <h5 className="text-center ">Upload Presentation</h5>
+          <Form.Group className="mb-3" controlId="topic">
+            <Form.Label>Topic of the Research</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Topic of the Research"
+              onChange={(e) => {
+                settopic(e.target.value);
+              }}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="category">
+            <Form.Label>Topic Category</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Topic Category"
+              required
+              onChange={(e) => {
+                setcategory(e.target.value);
+              }}
+            />
+          </Form.Group>
           <div
             style={{
               marginLeft: "45%",
@@ -74,7 +105,7 @@ const SubmitDocument = () => {
               style={{ marginLeft: "35%", marginBottom: "30px" }}
               onChange={(e) => {
                 setDoc(e.target.files);
-                toast.info("Please make sure to upload only .docx files");
+                toast.info("Please make sure to upload only .pptx files");
               }}
             />
           </div>
