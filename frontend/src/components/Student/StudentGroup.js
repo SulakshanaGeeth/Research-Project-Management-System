@@ -1,5 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
+
 import axios from "axios";
 import { BACKEND_BASE_URL } from "./../constant/index";
 // import { useNavigate } from "react-router-dom";
@@ -39,16 +41,13 @@ let StudentGroup = () => {
     axios
       .post(`${BACKEND_BASE_URL}/student-group/create`, newStudentGroup)
       .then(() => {
-        alert("New Student Group Added");
+        toast.success("New Student Group Added");
         // props.history.push('/dashbord/');
       })
       .catch((error) => {
         if (error.response) {
-          alert(error.response.data.error);
+          toast.error(error.response.data.error);
         }
-        // alert(e);
-        // res.status(e.response.status).json(e.response.data);
-        // let data = res.status(e.response.status).json(e.response.data);
       });
   };
 
@@ -66,19 +65,9 @@ let StudentGroup = () => {
     setmember4_Name("Thamali");
   };
 
-  // const back = () => props.history.push("/");
-
-  // function handleClick() {
-  //   navigate("/v3/student-dashboard/" + name);
-  // }
-
   return (
     <Fragment>
       <div style={{ backgroundColor: "#e6e6e6" }}>
-        {/* <Button onClick={() => handleClick()} variant="primary">
-          Back
-        </Button> */}
-
         <h4 className="text-center ">Create Student Group</h4>
         <div
           style={{

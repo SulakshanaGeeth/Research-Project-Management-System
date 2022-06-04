@@ -3,6 +3,7 @@ import { Fragment, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_BASE_URL } from "./../constant/index";
+import { toast } from "react-toastify";
 
 const SubmitDocument = () => {
   const history = useNavigate();
@@ -28,8 +29,10 @@ const SubmitDocument = () => {
       });
       if (res.ok) {
         setDoc(null);
-        alert("Document submited successfully");
-        history.replace("/home");
+        toast.success("Document submited successfully");
+      }
+      if (!res.ok) {
+        toast.error("Only .docx format allowed!");
       }
     } catch (error) {
       console.log(error);
@@ -71,6 +74,7 @@ const SubmitDocument = () => {
               style={{ marginLeft: "35%", marginBottom: "30px" }}
               onChange={(e) => {
                 setDoc(e.target.files);
+                toast.info("Please make sure to upload only .docx files");
               }}
             />
           </div>

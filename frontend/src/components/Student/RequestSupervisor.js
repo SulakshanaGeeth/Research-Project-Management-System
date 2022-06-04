@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "./../constant/index";
-// import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RequestSupervisor = () => {
   const [topicName, settopicName] = useState("");
@@ -12,16 +12,9 @@ const RequestSupervisor = () => {
   const [supervisorName, setsupervisorName] = useState("");
   const [attachment, setattachment] = useState("");
 
-  // const current = new Date();
-  // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
-
-  // const  = Date().toLocaleString();
   const date = Date().toLocaleString();
-  // console.log("Date " + date);
 
   const userEmail = localStorage.getItem("email");
-  // const navigate = useNavigate();
-  // const name = localStorage.getItem("username");
 
   const sendData = (e) => {
     e.preventDefault();
@@ -39,11 +32,12 @@ const RequestSupervisor = () => {
     axios
       .post(`${BACKEND_BASE_URL}/research-topic/register`, newRequestSupervisor)
       .then(() => {
-        alert("Request has been Send");
-        // props.history.push('/dashbord/');
+        toast.success("Request has been Send");
       })
-      .catch((err) => {
-        alert(err);
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data.error);
+        }
       });
   };
 
@@ -59,16 +53,9 @@ const RequestSupervisor = () => {
     );
   };
 
-  // function handleClick() {
-  //   navigate("/v3/student-dashboard/" + name);
-  // }
-
   return (
     <Fragment>
       <div style={{ backgroundColor: "#e6e6e6" }}>
-        {/* <Button onClick={() => handleClick()} variant="primary">
-          Back
-        </Button> */}
         <h4 className="text-center ">Request Supervisor</h4>
         <div
           style={{
