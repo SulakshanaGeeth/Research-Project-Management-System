@@ -8,10 +8,12 @@ import { toast } from "react-toastify";
 const SubmitDocument = () => {
   const history = useNavigate();
   const email = localStorage.getItem("email");
-  const topic = "topic01";
-  const category = "category01";
+  // const topic = "topic01";
+  // const category = "category01";
 
   const [doc, setDoc] = useState([]);
+  const [topic, settopic] = useState([]);
+  const [category, setcategory] = useState([]);
 
   const upload = async (e) => {
     try {
@@ -61,7 +63,29 @@ const SubmitDocument = () => {
         }}
       >
         <form onSubmit={upload} encType="multipart/form-data">
-          <h5 className="text-center ">Upload document</h5>
+          <h5 className="text-center ">Upload Presentation</h5>
+          <Form.Group className="mb-3" controlId="topic">
+            <Form.Label>Topic of the Research</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Topic of the Research"
+              onChange={(e) => {
+                settopic(e.target.value);
+              }}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="category">
+            <Form.Label>Topic Category</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Topic Category"
+              required
+              onChange={(e) => {
+                setcategory(e.target.value);
+              }}
+            />
+          </Form.Group>
           <div
             style={{
               marginLeft: "45%",
