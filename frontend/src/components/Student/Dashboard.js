@@ -13,16 +13,12 @@ import "./../Staff/Supervisor/styles/Dashboard.css";
 import Logo from "./../Staff/Supervisor/assets/logo.png";
 import { useNavigate, useParams } from "react-router-dom";
 import CarouselView from "./../Staff/Supervisor/DashboardSubComponents/CarouselView";
-import ResearchTopics from "./../Staff/Supervisor/DashboardSubComponents/ResearchTopics";
-import EvaluateDocuments from "./../Staff/Supervisor/DashboardSubComponents/EvaluateDocuments";
-import ChatWithGroups from "./../Staff/Supervisor/DashboardSubComponents/ChatWithGroups";
 import PasswordResetRequest from "./../Register/PasswordResetRequest";
 import SingleChat from "./../Staff/Supervisor/DashboardSubComponents/SingleChat";
 
 import RequestSupervisor from "./RequestSupervisor";
 import StudentGroup from "./StudentGroup";
 import SubmitDocument from "./SubmitDocument";
-import ViewDocument from "./ViewDocument";
 
 const { Header, Content, Footer, Sider } = Layout;
 
