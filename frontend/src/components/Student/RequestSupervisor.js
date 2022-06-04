@@ -55,13 +55,14 @@ const RequestSupervisor = () => {
 
   return (
     <Fragment>
-      <div style={{ backgroundColor: "#e6e6e6" }}>
+      <div style={{ backgroundColor: "#e6e6e6", minHeight: "640px" }}>
         <h4 className="text-center ">Request Supervisor</h4>
         <div
           style={{
             backgroundColor: "#f2f2f2",
             maxWidth: "60%",
             margin: "auto",
+            borderRadius: "20px",
           }}
         >
           <Form
@@ -86,6 +87,7 @@ const RequestSupervisor = () => {
                 type="text"
                 value={topicCat}
                 placeholder="Enter Topic category of the research"
+                required
                 onChange={(e) => {
                   settopicCat(e.target.value);
                 }}
@@ -98,6 +100,7 @@ const RequestSupervisor = () => {
                 type="text"
                 placeholder="Enter Faculty"
                 value={faculty}
+                required
                 onChange={(e) => {
                   setfaculty(e.target.value);
                 }}
@@ -112,6 +115,7 @@ const RequestSupervisor = () => {
                 type="number"
                 value={members}
                 placeholder="Enter Number of Students in the research group"
+                required
                 onChange={(e) => {
                   setmembers(e.target.value);
                 }}
@@ -124,6 +128,7 @@ const RequestSupervisor = () => {
                 type="text"
                 value={supervisorName}
                 placeholder="Enter name of the supervisor"
+                required
                 onChange={(e) => {
                   setsupervisorName(e.target.value);
                 }}
@@ -136,6 +141,7 @@ const RequestSupervisor = () => {
                 type="text"
                 value={attachment}
                 placeholder="Enter links of the attachments"
+                required
                 onChange={(e) => {
                   setattachment(e.target.value);
                 }}
@@ -145,7 +151,7 @@ const RequestSupervisor = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ marginLeft: "140px", marginBottom: "60px" }}
+              style={{ marginLeft: "140px", marginBottom: "20px" }}
             >
               Submit
             </Button>

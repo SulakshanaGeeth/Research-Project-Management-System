@@ -1,18 +1,10 @@
 import React, { useState, Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
-
 import axios from "axios";
 import { BACKEND_BASE_URL } from "./../constant/index";
-// import { useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
-// import { createHashHistory } from "history";
-// import { Redirect } from "react-router";
 
 let StudentGroup = () => {
-  // const navigate = useNavigate();
-  const name = localStorage.getItem("username");
-
   const [group_name, setgroup_name] = useState("");
   const [member1_Email, setmember1_Email] = useState("");
   const [member2_Email, setmember2_Email] = useState("");
@@ -42,7 +34,6 @@ let StudentGroup = () => {
       .post(`${BACKEND_BASE_URL}/student-group/create`, newStudentGroup)
       .then(() => {
         toast.success("New Student Group Added");
-        // props.history.push('/dashbord/');
       })
       .catch((error) => {
         if (error.response) {
@@ -67,13 +58,14 @@ let StudentGroup = () => {
 
   return (
     <Fragment>
-      <div style={{ backgroundColor: "#e6e6e6" }}>
+      <div style={{ backgroundColor: "#e6e6e6", minHeight: "880px" }}>
         <h4 className="text-center ">Create Student Group</h4>
         <div
           style={{
             backgroundColor: "#f2f2f2",
             maxWidth: "60%",
             margin: "auto",
+            borderRadius: "20px",
           }}
         >
           <Form
@@ -86,6 +78,7 @@ let StudentGroup = () => {
                 type="text"
                 value={group_name}
                 placeholder="Enter Group Name"
+                required
                 onChange={(e) => {
                   setgroup_name(e.target.value);
                 }}
@@ -97,6 +90,7 @@ let StudentGroup = () => {
                 type="email"
                 value={member1_Email}
                 placeholder="Enter email address of the student 1"
+                required
                 onChange={(e) => {
                   setmember1_Email(e.target.value);
                 }}
@@ -107,6 +101,7 @@ let StudentGroup = () => {
               <Form.Control
                 type="text"
                 placeholder="Enter name of the student 1"
+                required
                 value={member1_Name}
                 onChange={(e) => {
                   setmember1_Name(e.target.value);
@@ -119,6 +114,7 @@ let StudentGroup = () => {
                 type="email"
                 value={member2_Email}
                 placeholder="Enter email address of the student 2"
+                required
                 onChange={(e) => {
                   setmember2_Email(e.target.value);
                 }}
@@ -130,6 +126,7 @@ let StudentGroup = () => {
                 type="text"
                 value={member2_Name}
                 placeholder="Enter name of the student 2"
+                required
                 onChange={(e) => {
                   setmember2_Name(e.target.value);
                 }}
@@ -141,6 +138,7 @@ let StudentGroup = () => {
                 type="email"
                 value={member3_Email}
                 placeholder="Enter email address of the student 3"
+                required
                 onChange={(e) => {
                   setmember3_Email(e.target.value);
                 }}
@@ -152,6 +150,7 @@ let StudentGroup = () => {
                 type="text"
                 value={member3_Name}
                 placeholder="Enter name of the student 3"
+                required
                 onChange={(e) => {
                   setmember3_Name(e.target.value);
                 }}
@@ -163,6 +162,7 @@ let StudentGroup = () => {
                 type="email"
                 value={member4_Email}
                 placeholder="Enter email address of the student 4"
+                required
                 onChange={(e) => {
                   setmember4_Email(e.target.value);
                 }}
@@ -174,6 +174,7 @@ let StudentGroup = () => {
                 type="text"
                 value={member4_Name}
                 placeholder="Enter name of the student 4"
+                required
                 onChange={(e) => {
                   setmember4_Name(e.target.value);
                 }}
@@ -182,7 +183,7 @@ let StudentGroup = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ marginLeft: "120px" }}
+              style={{ marginLeft: "120px", marginBottom: "15px" }}
             >
               Submit
             </Button>
