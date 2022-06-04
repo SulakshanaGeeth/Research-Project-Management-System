@@ -125,6 +125,7 @@ const RequestSupervisor = () => {
             <Form.Group className="mb-3" controlId="supervisorName">
               <Form.Label>Enter name of the supervisor : </Form.Label>
               <Form.Control
+                id="supervisor_name"
                 type="text"
                 value={supervisorName}
                 placeholder="Enter name of the supervisor"

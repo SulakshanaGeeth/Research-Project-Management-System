@@ -13,16 +13,13 @@ import "./../Staff/Supervisor/styles/Dashboard.css";
 import Logo from "./../Staff/Supervisor/assets/logo.png";
 import { useNavigate, useParams } from "react-router-dom";
 import CarouselView from "./../Staff/Supervisor/DashboardSubComponents/CarouselView";
-import ResearchTopics from "./../Staff/Supervisor/DashboardSubComponents/ResearchTopics";
-import EvaluateDocuments from "./../Staff/Supervisor/DashboardSubComponents/EvaluateDocuments";
-import ChatWithGroups from "./../Staff/Supervisor/DashboardSubComponents/ChatWithGroups";
 import PasswordResetRequest from "./../Register/PasswordResetRequest";
 import SingleChat from "./../Staff/Supervisor/DashboardSubComponents/SingleChat";
 
 import RequestSupervisor from "./RequestSupervisor";
 import StudentGroup from "./StudentGroup";
 import SubmitDocument from "./SubmitDocument";
-import ViewDocument from "./ViewDocument";
+import SubmitPresentation from "./SubmitPresentation";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -63,6 +60,11 @@ const StudentDashboard = () => {
       )}-dashboard/${localStorage.getItem("username")}/submit-document`:
         setHeader("Submit Documents");
         break;
+      case `/v3/${localStorage.getItem(
+        "type"
+      )}-dashboard/${localStorage.getItem("username")}/submit-presentation`:
+        setHeader("Submit Presentation");
+        break;
       default:
         break;
     }
@@ -81,6 +83,9 @@ const StudentDashboard = () => {
         break;
       case "chat":
         document.getElementById("header").innerHTML = "Submit Documents";
+        break;
+      case "presentations":
+        document.getElementById("header").innerHTML = "Submit Presentations";
         break;
       default:
         document.getElementById("header").innerHTML = "Dashboard";
@@ -180,13 +185,20 @@ const StudentDashboard = () => {
                   "username"
                 )}/request-supervisor`
               ? ["1"]
+              : location.pathname ===
+                `/v3/${localStorage.getItem(
+                  "type"
+                )}-dashboard/${localStorage.getItem(
+                  "username"
+                )}/submit-document`
+              ? ["2"]
               : (location.pathname ===
                   `/v3/${localStorage.getItem(
                     "type"
                   )}-dashboard/${localStorage.getItem(
                     "username"
-                  )}/submit-document` ||
-                  groupName) && ["2"]
+                  )}/submit-presentation` ||
+                  groupName) && ["3"]
           }
         >
           <Menu.Item
@@ -234,6 +246,22 @@ const StudentDashboard = () => {
             }}
           >
             Submit Documents
+          </Menu.Item>
+          <Menu.Item
+            key="3"
+            icon={<WechatFilled />}
+            onClick={() => {
+              setHeader("Submit Presentations");
+              history(
+                `/v3/${localStorage.getItem(
+                  "type"
+                )}-dashboard/${localStorage.getItem(
+                  "username"
+                )}/submit-presentation`
+              );
+            }}
+          >
+            Submit Presentations
           </Menu.Item>
         </Menu>
         <br />
@@ -322,6 +350,12 @@ const StudentDashboard = () => {
             )}-dashboard/${localStorage.getItem(
               "username"
             )}/submit-document` && <SubmitDocument />}
+          {location.pathname ===
+            `/v3/${localStorage.getItem(
+              "type"
+            )}-dashboard/${localStorage.getItem(
+              "username"
+            )}/submit-presentation` && <SubmitPresentation />}
           {groupName && <SingleChat />}
         </Content>
         <Footer style={{ textAlign: "center" }}>

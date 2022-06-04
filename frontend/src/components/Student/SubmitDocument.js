@@ -54,7 +54,7 @@ const SubmitDocument = () => {
         }}
       >
         <form onSubmit={upload} encType="multipart/form-data">
-          <h5 className="text-center ">Upload document</h5>
+          <h5 className="text-center ">Upload Document</h5>
           <div
             style={{
               marginLeft: "45%",

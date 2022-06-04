@@ -20,8 +20,8 @@ import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
-import StudentDashboarrd from "./components/Student/Dashboard";
-import SubmitPresentation from "./components/Student/SubmitPresentation";
+
+import StudentDashboard from "./components/Student/Dashboard";
 
 //Panal member Imports
 import EvaluationPrentation from "./components/Staff/PanelMember/EvaluatePresentation";
@@ -56,18 +56,19 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/submit-presentation" element={<SubmitPresentation />} />
           <Route
             path="/passwordreset/:resetToken"
             element={<ResetPassword />}
           />
           <Route path="*" element={<PageNotFound />} />
 
+          {/* Student Routes Goes Here */}
+
           <Route
             path="/v3/:student-dashboard/:username"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
@@ -76,15 +77,16 @@ const App = () => {
             path="/v3/:student-dashboard/:username/student-group"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
+
           <Route
             path="/v3/:type/:username/view-document"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
@@ -93,7 +95,7 @@ const App = () => {
             path="/v3/:type/:username/submit-document"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
@@ -102,10 +104,20 @@ const App = () => {
             path="/v3/:type/:username/request-supervisor"
             element={
               <PrivateRoute>
-                <StudentDashboarrd />
+                <StudentDashboard />
               </PrivateRoute>
             }
           />
+
+          <Route
+            path="/v3/:type/:username/submit-presentation"
+            element={
+              <PrivateRoute>
+                <StudentDashboard />
+              </PrivateRoute>
+            }
+          />
+
           <Route
             path="/v4/:panel-dashboard/:username"
             element={
@@ -123,10 +135,6 @@ const App = () => {
               </PrivateRoute>
             }
           />
-          {/* <Route
-            path="/evaluate-presentation/feedback/:id"
-            element={<GiveFeedBack />}
-          /> */}
 
           <Route
             path="/v4/:type/:username/evaluate-presentation/feedback/:id"
