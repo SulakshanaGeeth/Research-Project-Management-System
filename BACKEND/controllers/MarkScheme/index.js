@@ -18,7 +18,7 @@ exports.createScheme = async (req, res) => {
   await newMarkScheme
     .save()
     .then(() => res.status(200).json({ success: true }))
-    .catch((error) => res.status(500).json({ success: false, error: error })); // else save to the db
+    .catch((error) => res.json({ success: false, error: error })); // else save to the db
 };
 
 //controller for getting topics
