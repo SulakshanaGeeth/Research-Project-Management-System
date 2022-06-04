@@ -3,7 +3,7 @@ const cloudinary = require("../../utils/cloudinary");
 const multer = require("multer");
 const uuid = require("uuid").v4;
 const path = require("path");
-const SubmitDoc = require("../../models/SubmitDocument");
+const UploadDocument = require("../../models/UploadDocument");
 
 // create two arrays
 const files = [];
@@ -46,7 +46,7 @@ const upload = multer({
   storage: storage,
 });
 
-router.post("/", upload.array("uploaded_Document", 10), async (req, res) => {
+router.post("/upload", upload.array("uploaded_Document", 10), async (req, res) => {
   try {
     console.log(req.files.length);
     console.log("Files", fileInArray);
@@ -68,16 +68,15 @@ router.post("/", upload.array("uploaded_Document", 10), async (req, res) => {
       }
     }
 
-    let submitDoc = new SubmitDoc({
+    let uploadDocument = new UploadDocument({
       email: req.body.email,
       doc: docx.secure_url,
-      cloudinary_id_doc: docx.public_id,
-      evaluation: "NOT EVALUATED",
+      cloudinaryID: docx.public_id,
     });
-    console.log("doc : " + submitDoc.doc);
+    console.log("doc : " + uploadDocument.doc);
 
-    await submitDoc.save();
-    res.json(submitDoc);
+    await uploadDocument.save();
+    res.json(uploadDocument);
   } catch (err) {
     console.log(err);
   }
@@ -85,19 +84,11 @@ router.post("/", upload.array("uploaded_Document", 10), async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    let submitDoc = await SubmitDoc.find();
-    res.json(submitDoc);
+    let uploadDocument = await UploadDocument.find();
+    res.json(uploadDocument);
   } catch (err) {
     console.log(err);
   }
-});
-
-router.put("/update/:id", async (req, res) => {
-  const { id } = req.params;
-  const { evaluation } = req.body;
-  await SubmitDoc.findByIdAndUpdate(id, { evaluation })
-    .then(() => res.status(200).json({ success: true, message: "Evaluated" }))
-    .catch((err) => res.status(500).json({ success: false, message: err }));
 });
 
 module.exports = router;

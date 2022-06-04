@@ -20,7 +20,13 @@ import SupervisorDashboard from "./components/Staff/Supervisor/Dashboard";
 import AdminDashboard from "./components/Staff/Admin/Dashboard";
 
 //Student Imports
+
 import StudentDashboard from "./components/Student/Dashboard";
+
+//Panal member Imports
+import EvaluationPrentation from "./components/Staff/PanelMember/EvaluatePresentation";
+import GiveFeedBack from "./components/Staff/PanelMember/giveFeedBack";
+import PanalDashboard from "./components/Staff/PanelMember/Dashboard";
 
 const App = () => {
   // The back-to-top button is hidden at the beginning
@@ -50,7 +56,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
           <Route
             path="/passwordreset/:resetToken"
             element={<ResetPassword />}
@@ -109,6 +114,33 @@ const App = () => {
             element={
               <PrivateRoute>
                 <StudentDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/v4/:panel-dashboard/:username"
+            element={
+              <PrivateRoute>
+                <PanalDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/v4/:type/:username/evaluate-presentation"
+            element={
+              <PrivateRoute>
+                <PanalDashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/v4/:type/:username/evaluate-presentation/feedback/:id"
+            element={
+              <PrivateRoute>
+                <PanalDashboard />
               </PrivateRoute>
             }
           />
