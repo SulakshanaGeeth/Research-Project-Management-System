@@ -14,11 +14,9 @@ import Logo from "./../Admin/assets/Alogo.png";
 import { useNavigate, useParams } from "react-router-dom";
 
 import PasswordResetRequest from "./../../Register/PasswordResetRequest";
-import SingleChat from "./../../Staff/Supervisor/DashboardSubComponents/SingleChat";
 
 import EvaluatePresentation from "./EvaluatePresentation";
 import GiveFeedBack from "./giveFeedBack";
-import Register from "./../../Register/Register";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -26,7 +24,7 @@ const PanalDashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const history = useNavigate();
 
-  const { username, groupName } = useParams();
+  const { id } = useParams();
 
   const date = new Date();
   const hrs = date.getHours();
@@ -40,48 +38,6 @@ const PanalDashboard = () => {
 
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
-  };
-
-  useEffect(() => {
-    switch (location.pathname) {
-      case `/v4/${localStorage.getItem(
-        "type"
-      )}-dashboard/${localStorage.getItem("username")}/evaluate-presentation`:
-        setHeader("Evaluate Presentation");
-        break;
-      case `/v4/${localStorage.getItem(
-        "type"
-      )}-dashboard/${localStorage.getItem("username")}/`:
-        setHeader("");
-        break;
-      case `/v4/${localStorage.getItem(
-        "type"
-      )}-dashboard/${localStorage.getItem("username")}/`:
-        setHeader("");
-        break;
-      default:
-        break;
-    }
-  }, [location.pathname]);
-
-  const setHeader = (type) => {
-    switch (type) {
-      case "dashboard":
-        document.getElementById("header").innerHTML = "Dashboard";
-        break;
-      case "presentation":
-        document.getElementById("header").innerHTML = "Evaluate Presentation";
-        break;
-      case "":
-        document.getElementById("header").innerHTML = "";
-        break;
-      case "":
-        document.getElementById("header").innerHTML = "";
-        break;
-      default:
-        document.getElementById("header").innerHTML = "Dashboard";
-        break;
-    }
   };
 
   const logoutHandler = () => {
@@ -124,7 +80,9 @@ const PanalDashboard = () => {
                   history(
                     `/v4/${localStorage.getItem(
                       "type"
-                    )}-dashboard/${localStorage.getItem("username")}`
+                    )}-dashboard/${localStorage.getItem(
+                      "username"
+                    )}/evaluate-presentation`
                   );
                   setHeader("dashboard");
                 }}
@@ -160,31 +118,7 @@ const PanalDashboard = () => {
         <br />
         <br />
         <br />
-        <Menu
-          theme="dark"
-          mode="vertical"
-          selectedKeys={
-            location.pathname ===
-            `/v4/${localStorage.getItem(
-              "type"
-            )}-dashboard/${localStorage.getItem(
-              "username"
-            )}/evaluate-presentation`
-              ? ["0"]
-              : location.pathname ===
-                `/v4/${localStorage.getItem(
-                  "type"
-                )}-dashboard/${localStorage.getItem(
-                  "username"
-                )}/evaluate-presentation/feedback/:id`
-              ? ["1"]
-              : (location.pathname ===
-                  `/v4/${localStorage.getItem(
-                    "type"
-                  )}-dashboard/${localStorage.getItem("username")}/` ||
-                  groupName) && ["2"]
-          }
-        >
+        <Menu theme="dark" mode="vertical" selectedKeys={["0"]}>
           <Menu.Item
             key="0"
             icon={<FolderOpenFilled />}
@@ -201,32 +135,6 @@ const PanalDashboard = () => {
           >
             Evaluate Presentation
           </Menu.Item>
-          <Menu.Item
-            key="1"
-            icon={<SnippetsFilled />}
-            onClick={() => {
-              setHeader("");
-              history(
-                `/v4/${localStorage.getItem(
-                  "type"
-                )}-dashboard/${localStorage.getItem(
-                  "username"
-                )}/evaluate-presentation/feedback/:id`
-              );
-            }}
-          ></Menu.Item>
-          <Menu.Item
-            key="2"
-            icon={<WechatFilled />}
-            onClick={() => {
-              setHeader("");
-              history(
-                `/v4/${localStorage.getItem(
-                  "type"
-                )}-dashboard/${localStorage.getItem("username")}/`
-              );
-            }}
-          ></Menu.Item>
         </Menu>
         <br />
         <br />
@@ -249,23 +157,10 @@ const PanalDashboard = () => {
         <Header
           className="site-layout-background"
           style={{ padding: 0, textAlign: "center" }}
-        >
-          <h1
-            id="header"
-            style={{ fontFamily: "serif", fontSize: "20px", marginTop: "20px" }}
-          >
-            {location.pathname ===
-            `/v4/${localStorage.getItem(
-              "type"
-            )}-dashboard/${localStorage.getItem("username")}`
-              ? "Dashboard"
-              : groupName && `Chat With ${groupName}`}
-          </h1>
-        </Header>
+        ></Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>{greet}</Breadcrumb.Item>
-            <Breadcrumb.Item>{username}</Breadcrumb.Item>
             <Breadcrumb.Item>
               <Popover
                 style={{ float: "right" }}
@@ -293,26 +188,15 @@ const PanalDashboard = () => {
           {location.pathname ===
             `/v4/${localStorage.getItem(
               "type"
-            )}-dashboard/${localStorage.getItem("username")}` && (
-            <CarouselView />
-          )}
+            )}-dashboard/${localStorage.getItem(
+              "username"
+            )}/evaluate-presentation` && <EvaluatePresentation />}
           {location.pathname ===
             `/v4/${localStorage.getItem(
               "type"
-            )}-dashboard/${localStorage.getItem("username")}/` && (
-            <EvaluatePresentation />
-          )}
-          {location.pathname ===
-            `/v4/${localStorage.getItem(
-              "type"
-            )}-dashboard/${localStorage.getItem("username")}/` && (
-            <GiveFeedBack />
-          )}
-          {location.pathname ===
-            `/v4/${localStorage.getItem(
-              "type"
-            )}-dashboard/${localStorage.getItem("username")}/` && <d />}
-          {groupName && <SingleChat />}
+            )}-dashboard/${localStorage.getItem(
+              "username"
+            )}/evaluate-presentation/feedback/${id}` && <GiveFeedBack />}
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Copyright © {date.getFullYear()} SLIIT

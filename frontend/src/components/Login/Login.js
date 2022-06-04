@@ -61,7 +61,7 @@ const Login = () => {
         else if (data.type === "Supervisor" || data.type === "Co-Supervisor")
           history(`/v1/${data.type}-dashboard/${username?.[0]}`);
         else if (data.type === "panel")
-          history(`/v4/:panel-dashboard/${username}`);
+          history(`/v4/panel-dashboard/${username}/evaluate-presentation`);
         else history(`/v3/${data.type}-dashboard/${username?.[0]}`);
 
         setLoading(false);

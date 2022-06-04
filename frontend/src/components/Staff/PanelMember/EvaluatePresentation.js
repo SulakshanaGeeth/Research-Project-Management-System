@@ -13,7 +13,7 @@ export default class Home extends Component {
   }
 
   handleClick(id) {
-    window.location.replace("/evaluate-presentation/feedback/" + id);
+    window.location.replace(`${location.pathname}/feedback/` + id);
   }
 
   retrivePosts() {
@@ -31,7 +31,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="container">
-        <p>All Posts</p>
+        <p style={{ color: "black" }}>All Posts</p>
         <table className="table">
           <thead>
             <tr>
